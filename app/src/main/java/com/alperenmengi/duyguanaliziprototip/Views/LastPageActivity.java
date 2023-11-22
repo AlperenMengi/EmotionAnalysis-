@@ -23,7 +23,7 @@ public class LastPageActivity extends AppCompatActivity {
         answersList2 = answersList;
     }
 
-    public void backToFirstPage(View view) {
+    public void backToTheFirstPage(View view) {
         Intent intent = new Intent(LastPageActivity.this,MainActivity.class);
         startActivity(intent);
     }

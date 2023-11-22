@@ -27,10 +27,15 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(3000);
         animationDrawable.start();
 
-        Intent intent = getIntent();
+
+        // bu kısmı çalıştırırsam, lastPageActivity ya da AnswersActivity'den MainActivitye dönmeye çalıştığımda
+        //hata alıyorum. her seferinde emaili çekmemi istiyor
+       /*Intent intent = getIntent();
         String email = intent.getStringExtra("email");
-        Toast.makeText(this, email.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, email, Toast.LENGTH_SHORT).show();*/
+
     }
+
 
     public void main_btn(View View){
         if (View.getId() == R.id.baslabutton){

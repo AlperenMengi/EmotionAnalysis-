@@ -30,7 +30,7 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.AnswersH
 
     @Override
     public void onBindViewHolder(@NonNull AnswersHolder holder, int position) {
-        holder.binding.recyclerViewTextView.setText(answersActivityArrayList.get(position));
+        holder.binding.recyclerViewTextView.setText((position + 1) + " - "+  answersActivityArrayList.get(position));
     }
 
     @Override

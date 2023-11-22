@@ -32,7 +32,6 @@ public class AnswersActivity extends AppCompatActivity {
         AnswersAdapter answersAdapter = new AnswersAdapter(answersList);
         binding.recyclerView.setAdapter(answersAdapter);
 
-
     }
 
     public void backToFirstPage(View view) {

@@ -59,7 +59,9 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestData();
+                //requestData();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -75,14 +77,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 if (response.isSuccessful()){
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("email", response.body().email);
+                    //intent.putExtra("email", response.body().email);
                     startActivity(intent);
                 }else
-                    Toast.makeText(LoginActivity.this, "Yanlış Şifre veya Eposta Girdiniz!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Yanlış Şifre veya E-posta Girdiniz!", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<UserModel> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "api'ya erişemedin", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Api'ya Erişilemedi", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });
