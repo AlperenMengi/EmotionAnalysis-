@@ -89,10 +89,10 @@ public class QuestionsActivity extends AppCompatActivity {
                 soruCevaplar(); // diğer soru ve cevapları yüklemek için
                 isClickButton = false; // seçilen cevap olmadığını belirtmek için
                 valueChoose = "";
-                binding.choose1.setBackgroundResource(R.drawable.background_btn_choose);
+                /*binding.choose1.setBackgroundResource(R.drawable.background_btn_choose);
                 binding.choose2.setBackgroundResource(R.drawable.background_btn_choose);
                 binding.choose3.setBackgroundResource(R.drawable.background_btn_choose);
-                binding.choose4.setBackgroundResource(R.drawable.background_btn_choose);
+                binding.choose4.setBackgroundResource(R.drawable.background_btn_choose);*/
             }
         }
         else
@@ -106,6 +106,11 @@ public class QuestionsActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             currentQuestion -= 1;
+            // Print the selected answer for the current question
+            if (!choosenAnswersList.isEmpty()) {
+                String selectedAnswer = choosenAnswersList.get(currentQuestion);
+                System.out.println("Selected answer for question " + (currentQuestion + 1) + ": " + selectedAnswer);
+            }
             soruCevaplar(); // diğer soru ve cevapları yüklemek için
             isClickButton = false; // seçilen cevap olmadığını belirtmek için
 
@@ -139,6 +144,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private void addQuestions() {
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Kendimi üzgün hissetmiyorum.", "Kendimi üzgün hissediyorum.", "Kendimi sürekli üzgün hissediyorum ve bundan kurtulamıyorum.", "O kadar üzgün ve mutsuzum ki artık katlanamıyorum."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Geleceğe karşı umutsuz ve karamsar değilim.", "Geleceğe dair karamsarım.", "Gelecekten beklediğim hiçbir şey yok.", "Geleceğim hakkında umutsuzum ve sanki hiçbir şey yoluna girmeyecekmiş gibi geliyor."));
+        questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Deneme cevabı 1.", "Deneme cevabı 2.", "Deneme cevabı 3.", "Deneme cevabı 4."));
     }
 
 
