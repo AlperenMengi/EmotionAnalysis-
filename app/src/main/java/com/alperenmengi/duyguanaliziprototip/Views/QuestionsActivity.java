@@ -54,23 +54,36 @@ public class QuestionsActivity extends AppCompatActivity {
         binding.choose3.setText(currentQuestion1.getAnswer3());
         binding.choose4.setText(currentQuestion1.getAnswer4());
 
+        isClickButton = false; // Her soruda başlangıçta isClickButton'ı false olarak ayarla
+
         for (String answer : choosenAnswersList) {
-            if (answer.equals(binding.choose1.getText().toString()))
+            if (answer.equals(binding.choose1.getText().toString())) {
                 binding.choose1.setBackgroundResource(R.drawable.background_btn_choose_color);
-            else
+                isClickButton = true;
+            } else {
                 binding.choose1.setBackgroundResource(R.drawable.background_btn_choose);
-            if (answer.equals(binding.choose2.getText().toString()))
+            }
+
+            if (answer.equals(binding.choose2.getText().toString())) {
                 binding.choose2.setBackgroundResource(R.drawable.background_btn_choose_color);
-            else
+                isClickButton = true;
+            } else {
                 binding.choose2.setBackgroundResource(R.drawable.background_btn_choose);
-            if (answer.equals(binding.choose3.getText().toString()))
+            }
+
+            if (answer.equals(binding.choose3.getText().toString())) {
                 binding.choose3.setBackgroundResource(R.drawable.background_btn_choose_color);
-            else
+                isClickButton = true;
+            } else {
                 binding.choose3.setBackgroundResource(R.drawable.background_btn_choose);
-            if (answer.equals(binding.choose4.getText().toString()))
+            }
+
+            if (answer.equals(binding.choose4.getText().toString())) {
                 binding.choose4.setBackgroundResource(R.drawable.background_btn_choose_color);
-            else
+                isClickButton = true;
+            } else {
                 binding.choose4.setBackgroundResource(R.drawable.background_btn_choose);
+            }
         }
     }
 
@@ -120,9 +133,7 @@ public class QuestionsActivity extends AppCompatActivity {
             binding.choose3.setBackgroundResource(R.drawable.background_btn_choose);
             binding.choose4.setBackgroundResource(R.drawable.background_btn_choose);*/
         }
-
     }
-
 
     // seçeneklerden birine tıklandığında
     public void clickChoose(View view) {

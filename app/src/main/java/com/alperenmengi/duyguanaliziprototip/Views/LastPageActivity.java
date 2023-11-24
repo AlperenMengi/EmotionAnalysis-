@@ -33,4 +33,16 @@ public class LastPageActivity extends AppCompatActivity {
         intent.putStringArrayListExtra("answers", new ArrayList<>(answersList2));
         startActivity(intent);
     }
+
+    public void seeAllEvaluate(View view) {
+        Intent intent = new Intent(LastPageActivity.this, EvaluatesActivity.class);
+        startActivity(intent);
+    }
+
+    public void makeEvaluate(View view) {
+        Intent intent = new Intent(LastPageActivity.this, MakeEvaluateActivity.class);
+        startActivity(intent);
+    }
+
+
 }

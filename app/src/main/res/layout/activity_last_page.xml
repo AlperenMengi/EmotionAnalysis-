@@ -10,11 +10,11 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="0dp"
+        android:layout_width="408dp"
         android:layout_height="0dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginBottom="78dp"
-        android:text="Testimizi Çözdüğünüz İçin Teşekkür Ederiz!"
+        android:layout_marginTop="112dp"
+        android:layout_marginBottom="57dp"
+        android:text="Anketimizi Çözdüğünüz İçin Teşekkür Ederiz."
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30sp"
@@ -24,24 +24,73 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/button3"
+        android:layout_width="135dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/background_btn"
+        android:textColor="@color/black"
+        android:onClick="makeEvaluate"
+        android:text="Anketi Değerlendir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:text="Anket ile ilgili değerlendirme paylaşmak için"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+    <Button
         android:id="@+id/button"
-        android:layout_width="241dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="188dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/background_btn"
         android:onClick="backToTheFirstPage"
         android:text="Anasayfa'ya Dön"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <Button
+        android:id="@+id/button5"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="84dp"
+        android:background="@drawable/background_btn"
+        android:onClick="seeAllEvaluate"
+        android:text="Değerlendirmeleri Gör"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <Button
         android:id="@+id/button2"
-        android:layout_width="241dp"
-        android:layout_height="50dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="75dp"
         android:layout_marginBottom="9dp"
         android:background="@drawable/background_btn"
         android:onClick="seeAnswers"
@@ -52,4 +101,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
