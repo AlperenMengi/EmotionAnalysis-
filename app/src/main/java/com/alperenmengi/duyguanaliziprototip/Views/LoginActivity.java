@@ -6,7 +6,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,15 +13,12 @@ import com.alperenmengi.duyguanaliziprototip.Models.UserModel;
 import com.alperenmengi.duyguanaliziprototip.R;
 import com.alperenmengi.duyguanaliziprototip.Service.UserAPI;
 import com.alperenmengi.duyguanaliziprototip.databinding.ActivityLoginBinding;
-import com.alperenmengi.duyguanaliziprototip.databinding.ActivityQuestionsBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,40 +85,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*
-    public void requestData(){
-        UserAPI userAPI = retrofit.create(UserAPI.class);
-
-        Call<List<UserModel>> request = userAPI.sendData(binding.username.getText().toString(), binding.password.getText().toString());
-        System.out.println(binding.username.getText());
-        System.out.println(binding.password.getText());
-        request.enqueue(new Callback<List<UserModel>>() {
-            @Override
-            public void onResponse(Call<List<UserModel>> call, Response<List<UserModel>> response) {
-                if (response.isSuccessful()){
-                    List<UserModel> responseList = response.body();
-                    userModels = new ArrayList<>(responseList);
-                    binding.loginButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(LoginActivity.this, userModels.get(0).password, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<UserModel>> call, Throwable t) {
-                System.out.println("hatalı erişim");
-                Toast.makeText(LoginActivity.this, "api'ya erişemedin", Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
-
-    }*/
-
 
     public void loadData(){
         UserAPI userAPI = retrofit.create(UserAPI.class);

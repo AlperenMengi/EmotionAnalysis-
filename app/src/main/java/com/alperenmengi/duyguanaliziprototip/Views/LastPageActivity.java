@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.alperenmengi.duyguanaliziprototip.Adapter.AnswersAdapter;
 import com.alperenmengi.duyguanaliziprototip.R;
 
 import java.util.ArrayList;
