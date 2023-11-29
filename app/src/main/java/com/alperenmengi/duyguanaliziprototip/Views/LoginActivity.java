@@ -55,9 +55,9 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestData();
-                /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);*/
+                //requestData();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -65,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
     private void requestData(){
         UserModel userModel = new UserModel(binding.email.getText().toString().trim(), binding.password.getText().toString());
         UserAPI userAPI = retrofit.create(UserAPI.class);
-
         Call<UserModel> call = userAPI.sendData(userModel);
 
         call.enqueue(new Callback<UserModel>() {
