@@ -9,11 +9,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="407dp"
-        android:layout_height="317dp"
-        android:layout_marginBottom="90dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:background="@drawable/background_top"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +20,7 @@
 
         <TextView
             android:id="@+id/textQuestion"
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:text="Question"
             android:textAlignment="center"
@@ -67,7 +65,7 @@
         android:id="@+id/nextButton"
         android:layout_width="375dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/background_btn"
         android:onClick="next"
         android:text="Sonraki Soru"
@@ -75,8 +73,7 @@
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -84,9 +81,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="100dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/nextButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
