@@ -14,6 +14,11 @@ public class QuestionModel {
         this.answer3 = answer3;
         this.answer4 = answer4;
     }
+    public QuestionModel(String questions, String answer1, String answer2){
+        this.questions = questions;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+    }
 
     public String getQuestions() {
         return questions;

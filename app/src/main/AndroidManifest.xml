@@ -16,7 +16,10 @@
         android:theme="@style/Theme.DuyguAnaliziPrototip"
         tools:targetApi="31">
         <activity
-            android:name=".EvaluatesActivity"
+            android:name=".Views.HopelessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Views.EvaluatesActivity"
             android:exported="false" />
         <activity
             android:name=".Views.MakeEvaluateActivity"

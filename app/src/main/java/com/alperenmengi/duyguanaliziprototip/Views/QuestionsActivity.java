@@ -25,8 +25,9 @@ public class QuestionsActivity extends AppCompatActivity {
     boolean isClickButton = false;
     String valueChoose = "";
     private Button lastClickedButton = null; // Son tıklanan butonun referansını saklar
-    private List<String> choosenAnswersList;
-    private List<String> choosenOptionList;
+    private ArrayList<String> choosenAnswersList;
+    private ArrayList<String> choosenOptionList;
+    String depression = "depression";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,14 +97,17 @@ public class QuestionsActivity extends AppCompatActivity {
             choosenAnswersList.add(fullAnswer[1].trim());
 
             currentQuestion += 1; // soru indexini arttırma
+
+            if (currentQuestion == (questionModelList.size() - 1))
+                binding.nextButton.setText("SONUCUNU GÖR");
+
             if(currentQuestion == (questionModelList.size())){ // son soruya gelinmişse teşekkür ekranına git.
 
                 Intent intent = new Intent(this,LastPageActivity.class);
-                intent.putStringArrayListExtra("answers", new ArrayList<>(choosenAnswersList));
+                intent.putExtra("test", depression);
+                intent.putStringArrayListExtra("answers", choosenAnswersList);
+                intent.putStringArrayListExtra("options", choosenOptionList);
                 startActivity(intent);
-                Intent intent1 = new Intent(this, LastPageActivity.class);
-                intent1.putStringArrayListExtra("options", new ArrayList<>(choosenOptionList));
-                startActivity(intent1);
             }
             else{//son soru değilse diğer soruları getir
                 soruCevaplar(); // diğer soru ve cevapları yüklemek için
@@ -162,9 +166,9 @@ public class QuestionsActivity extends AppCompatActivity {
     private void addQuestions() {
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Kendimi üzgün hissetmiyorum.", "Kendimi üzgün hissediyorum.", "Kendimi sürekli üzgün hissediyorum ve bundan kurtulamıyorum.", "O kadar üzgün ve mutsuzum ki artık katlanamıyorum."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Geleceğe karşı umutsuz ve karamsar değilim.", "Geleceğe dair karamsarım.", "Gelecekten beklediğim hiçbir şey yok.", "Geleceğim hakkında umutsuzum ve sanki hiçbir şey yoluna girmeyecekmiş gibi geliyor."));
-        questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Kendimi başarısız biri olarak tanımlamam.", "Kendimi ortalama bir insandan daha başarısız biri olarak tanımlarım", "Geçmişim başarısılıklarla doluymuş gibi hissediyorum.", "Tümüyle başarısız biri olduğumu düşünüyorum."));
-        questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Her şeyden eskisi kadar zevk alabiliyorum", "Birçok şeyden eskisi kadar zevk alamıyorum.", "Artık hiçbir şey bana keyif vermiyor.", "Her şeyden sıkılıyorum ve hiçbir şeyden memnun değilim"));
-        questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Kendimi herhangi bir şekilde suçlu hissetmiyorum.", "Kendimi zaman zaman suçlu hissediyorum", "Kendimi çoğu zaman oldukça suçlu hissediyorum", "Kendimi her zaman oldukça suçlu hissediyorum."));
+        questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Kendimi başarısız biri olarak tanımlamam.", "Kendimi ortalama bir insandan daha başarısız biri olarak tanımlarım.", "Geçmişim başarısılıklarla doluymuş gibi hissediyorum.", "Tümüyle başarısız biri olduğumu düşünüyorum."));
+        questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Her şeyden eskisi kadar zevk alabiliyorum.", "Birçok şeyden eskisi kadar zevk alamıyorum.", "Artık hiçbir şey bana keyif vermiyor.", "Her şeyden sıkılıyorum ve hiçbir şeyden memnun değilim."));
+        questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Kendimi herhangi bir şekilde suçlu hissetmiyorum.", "Kendimi zaman zaman suçlu hissediyorum.", "Kendimi çoğu zaman oldukça suçlu hissediyorum", "Kendimi her zaman oldukça suçlu hissediyorum."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Cezalandırıldığımı düşünmüyorum.", "Cezalandırılabileceğimi hissediyorum.", "Cezalandırılmayı bekliyorum.", "Cezalandırıldığımı düşünüyorum."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Kendimden memnunum.", "Kendimden pek memnum değilim.", "Kendimden tiksiniyorum.", "Kendimden nefret ediyorum."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Başkalarından daha kötü olduğumu düşünmüyorum.", "Hatalarım ve zayıflıklarım için kendimi eleştiririm.", "Hatalarım için her zaman kendimi suçlarım.", "Başıma gelen her kötü şey için kendimi suçlarım."));
@@ -176,7 +180,7 @@ public class QuestionsActivity extends AppCompatActivity {
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Eskisinden daha kötü göründüğümü düşünmüyorum.", "Eskiye kıyasla yaşlı ve çirkin göründüğümden endişe ediyorum.", "Görünüşümde yaşlı ve çirkin görünmeme neden olan kalıcı değişikliker olduğunu hissediyorum.", "Kendimi çok çirkin buluyorum."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Eskisi kadar iyi iş yapabiliyorum.", "Her zaman yaptığım işler şimdilerde fazladan efor gerektiriyor.", "Ufak bir işi bile kendimi çok zorlayarak yapabiliyorum.", "Artık hiçbir iş yapamıyorum."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Uyku düzenimde eskiye kıyasla bir değişiklik yok.", "Eskisi gibi uyuyamıyorum.", "Eskisine göre 1-2 saat erken uyanıyorum ve tekrar uykuya dalmakta zorlamıyorum.", "Eskisine göre çok erken uyanıyorum ve bir daha uyuyamıyorum."));
-        questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Her zamankinden daha çok yorulmuyorum.", "Her zamankine kıyasladaha çabuk yoruluyorum.", "Yaptığım her şeyde yorgunluk hissediyorum.", "Kendidmi neredeyse hiçbir şey yapamayacak kadar yorgun hissediyorum."));
+        questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Her zamankinden daha çok yorulmuyorum.", "Her zamankine kıyasladaha çabuk yoruluyorum.", "Yaptığım her şeyde yorgunluk hissediyorum.", "Kendimi neredeyse hiçbir şey yapamayacak kadar yorgun hissediyorum."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "İştahımda bir değişiklik yok.", "Son zamanlarda iştahım çok azaldı.", "Son zamanalarda iştahım çok azaldı.", "Artık hiç iştahım yok, hiçbir şey yiyemiyorum."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Son zamanalarda kilo vermedim.", "Zayıflamaya çalışmadığım halde en az 2 kilo kaybettim.", "Zayıflamaya çalışmadığım halde en az 4 kilo kaybettim.", "Zayıflamaya çalışmadığım halde en az 6 kilo kaybettim."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Sağlığım hakkında fazla endişem yok.", "Ağrı, sancı, mide bozukluğu, veya kabızlık gibi rahıtsızlıklar beni endişelendiriyor.", "Sağlığımın bozulmasından endişeleniyorum ve bu sebeple kafamı başka şeylere vermekte zorlanıyorum.", "Sağlığım hakkında o kadar endişeliyim ki başka hiçbir şey düşünemiyorum."));

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.alperenmengi.duyguanaliziprototip.Adapter.AnswersAdapter;
 import com.alperenmengi.duyguanaliziprototip.R;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class AnswersActivity extends AppCompatActivity {
 
+    List<String> answerList2;
     private ActivityAnswersBinding binding;
     @Override
 
@@ -26,10 +28,15 @@ public class AnswersActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        List<String> answersList= getIntent().getStringArrayListExtra("answers");
-
+        List<String> answersList = getIntent().getStringArrayListExtra("answers");
+        answerList2 = answersList;
+        if (answerList2.size() == 0)
+            Toast.makeText(this, "liste boş", Toast.LENGTH_SHORT).show();
+        for (String answer : answerList2){
+            System.out.println(answer);
+        }
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AnswersAdapter answersAdapter = new AnswersAdapter(answersList);
+        AnswersAdapter answersAdapter = new AnswersAdapter(answerList2);
         binding.recyclerView.setAdapter(answersAdapter);
 
     }

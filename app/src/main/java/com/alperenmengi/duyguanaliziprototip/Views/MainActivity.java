@@ -36,16 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    public void main_btn(View View){
-        if (View.getId() == R.id.baslabutton){
-            Intent intent = new Intent(MainActivity.this, QuestionsActivity.class);
-            startActivity(intent);
-        }
-        if(View.getId() == R.id.cikisbutton){
-            this.finishAffinity(); // uygulamayı kapa
-        }
+    public void quit(View view) {
+        this.finishAffinity(); // uygulamayı kapa
     }
 
+    public void hopelessTest(View view) {
+        Intent intent = new Intent(MainActivity.this, HopelessActivity.class);
+        startActivity(intent);
+    }
 
+    public void depressionTest(View view) {
+        Intent intent = new Intent(MainActivity.this, QuestionsActivity.class);
+        startActivity(intent);
+    }
 }

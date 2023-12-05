@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void loadData(){
+    /*public void loadData(){
         UserAPI userAPI = retrofit.create(UserAPI.class);
         Call<List<UserModel>> call = userAPI.getData();
 
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                     userModels = new ArrayList<>(responseList);
                     for (UserModel userModel : userModels){
                         System.out.println("şifreler : " + userModel.password);
-                    }/*
+                    }
                     binding.loginButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                    });*/
+                    });
                 }
 
             }
@@ -120,6 +120,6 @@ public class LoginActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-    }
+    }*/
 
 }
