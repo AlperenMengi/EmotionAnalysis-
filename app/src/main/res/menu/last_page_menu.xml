@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/seeAnswers"
+        android:title="Cevaplarınızı Görün" />
+    <item
+        android:id="@+id/seeEvaulate"
+        android:title="Değerlendirmeleri Gör" />
+    <item
+        android:id="@+id/goBackMain"
+        android:title="Anasayfa'ya Dön" />
+</menu>

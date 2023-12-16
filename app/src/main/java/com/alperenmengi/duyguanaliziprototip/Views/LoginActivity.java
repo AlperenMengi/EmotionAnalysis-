@@ -19,10 +19,15 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
@@ -31,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private String BASE_URL = "https://emotionapi.onrender.com/";
     Retrofit retrofit;
     private ActivityLoginBinding binding;
+    CompositeDisposable compositeDisposable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,42 +55,58 @@ public class LoginActivity extends AppCompatActivity {
         Gson gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)// buradan bir json verisi alacağımızı söylüyoruz.
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))// gelen JSON'ı modele göre alacağımıız retrofite de bidirmek için bu kısmı yazıyoruz
                 .build();
 
-        //loadData();
+        compositeDisposable = new CompositeDisposable();
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestData();
+            }
+        });
+
+        /*binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //requestData();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     private void requestData(){
         UserModel userModel = new UserModel(binding.email.getText().toString().trim(), binding.password.getText().toString());
-        UserAPI userAPI = retrofit.create(UserAPI.class);
-        Call<UserModel> call = userAPI.sendData(userModel);
+        UserAPI userAPI = retrofit.create(UserAPI.class);//böylece servisi oluşturmuş olduk.
 
-        call.enqueue(new Callback<UserModel>() {
-            @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                if (response.isSuccessful()){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    //intent.putExtra("email", response.body().email);
-                    startActivity(intent);
-                }else
-                    Toast.makeText(LoginActivity.this, "Yanlış Şifre veya E-posta Girdiniz!", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Api'ya Erişilemedi", Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
+        Disposable disposable = userAPI.sendData(userModel)
+                .subscribeOn(Schedulers.io())//kayıt olma işlemi hangi thread'de olucak
+                .observeOn(AndroidSchedulers.mainThread())// alınan sonuç main thread da gözlemlenecek
+                .subscribe(this::handleResponse, this::handleError);
+
+        compositeDisposable.add(disposable);
+
+
+
     }
+    private void handleResponse(UserModel userModel) {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void handleError(Throwable throwable) {
+        Toast.makeText(LoginActivity.this, "Yanlış Şifre veya E-posta Girdiniz!", Toast.LENGTH_SHORT).show();
+        throwable.printStackTrace();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.clear();
+    }
+
 
     /*public void loadData(){
         UserAPI userAPI = retrofit.create(UserAPI.class);
@@ -123,3 +146,29 @@ public class LoginActivity extends AppCompatActivity {
     }*/
 
 }
+
+
+/*  requestData eski içi
+        UserModel userModel = new UserModel(binding.email.getText().toString().trim(), binding.password.getText().toString());
+        UserAPI userAPI = retrofit.create(UserAPI.class);
+
+
+
+        Call<UserModel> call = userAPI.sendData(userModel);
+
+        call.enqueue(new Callback<UserModel>() {
+            @Override
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                if (response.isSuccessful()){
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    //intent.putExtra("email", response.body().email);
+                    startActivity(intent);
+                }else
+                    Toast.makeText(LoginActivity.this, "Yanlış Şifre veya E-posta Girdiniz!", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<UserModel> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Api'ya Erişilemedi", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });*/

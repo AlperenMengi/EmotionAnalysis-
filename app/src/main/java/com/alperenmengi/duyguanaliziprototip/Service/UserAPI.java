@@ -2,6 +2,9 @@ package com.alperenmengi.duyguanaliziprototip.Service;
 
 import com.alperenmengi.duyguanaliziprototip.Models.UserModel;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -19,7 +22,7 @@ public interface UserAPI {
     //Call<List<UserModel>> sendData(@Field("name") String name, @Field("password") String password);
 
     @POST("auth/login")
-    Call<UserModel> sendData(@Body UserModel userModel);
+    Observable<UserModel> sendData(@Body UserModel userModel);
 
 
 }

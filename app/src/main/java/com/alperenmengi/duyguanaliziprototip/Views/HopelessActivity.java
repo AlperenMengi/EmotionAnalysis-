@@ -150,7 +150,7 @@ public class HopelessActivity extends AppCompatActivity {
         questionModelList.add(new QuestionModel("Kendim ile ilgili şeyleri düzeltemediğime göre çabalamayı bıraksam iyi olur.","Evet","Hayır"));
         questionModelList.add(new QuestionModel(" İşler kötüye giderken bile her şeyin hep böyle kalmayacağını bilmek beni rahatlatıyor.","Evet","Hayır"));
         questionModelList.add(new QuestionModel("Gelecek on yıl içinde hayatimin nasıl olacağını hayal bile edemiyorum.","Evet","Hayır"));
-        questionModelList.add(new QuestionModel("Yapmayı en çok istediğim şeyleri gerçekleştirmek için yeterli zamanım var.","Evet","Hayır"));
+        /*questionModelList.add(new QuestionModel("Yapmayı en çok istediğim şeyleri gerçekleştirmek için yeterli zamanım var.","Evet","Hayır"));
         questionModelList.add(new QuestionModel("Benim için çok önemli konularda ileride basarili olacağımı umuyorum.","Evet","Hayır"));
         questionModelList.add(new QuestionModel("Geleceğimi karanlık görüyorum.","Evet","Hayır"));
         questionModelList.add(new QuestionModel("Dünya nimetlerinden sıradan bir insandan daha çok yararlanacağımı umuyorum.","Evet","Hayır"));
@@ -165,6 +165,6 @@ public class HopelessActivity extends AppCompatActivity {
         questionModelList.add(new QuestionModel("Gelecekte gerçek doyuma ulaşmam olanaksız gibi.","Evet","Hayır"));
         questionModelList.add(new QuestionModel("Gelecek bana bulanık ve belirsiz görünüyor.","Evet","Hayır"));
         questionModelList.add(new QuestionModel("Kotu günlerden çok , iyi günler bekliyorum.","Evet","Hayır"));
-        questionModelList.add(new QuestionModel("İstediğim her şeyi elde etmek için caba göstermenin gerçekten yararı yok,nasıl olsa onu elde edemeyeceğim.","Evet","Hayır"));
+        questionModelList.add(new QuestionModel("İstediğim her şeyi elde etmek için caba göstermenin gerçekten yararı yok,nasıl olsa onu elde edemeyeceğim.","Evet","Hayır"));*/
     }
 }
