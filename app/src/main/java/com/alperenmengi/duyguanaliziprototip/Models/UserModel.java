@@ -1,6 +1,5 @@
 package com.alperenmengi.duyguanaliziprototip.Models;
 
-
 import com.google.gson.annotations.SerializedName;
 
 public class UserModel {
@@ -10,6 +9,8 @@ public class UserModel {
     public String email;
     @SerializedName("password")
     public String password;
+    @SerializedName("_id")
+    public String id;
 
     public UserModel(String email, String password) {
         this.email = email;

@@ -37,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     Retrofit retrofit;
     private ActivityLoginBinding binding;
     CompositeDisposable compositeDisposable;
+    Disposable disposable;
+    public static String userID;
 
 
     @Override
@@ -64,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 requestData();
+                /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);*/
             }
         });
 
@@ -81,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         UserModel userModel = new UserModel(binding.email.getText().toString().trim(), binding.password.getText().toString());
         UserAPI userAPI = retrofit.create(UserAPI.class);//böylece servisi oluşturmuş olduk.
 
-        Disposable disposable = userAPI.sendData(userModel)
+        disposable = userAPI.sendData(userModel)
                 .subscribeOn(Schedulers.io())//kayıt olma işlemi hangi thread'de olucak
                 .observeOn(AndroidSchedulers.mainThread())// alınan sonuç main thread da gözlemlenecek
                 .subscribe(this::handleResponse, this::handleError);
@@ -92,8 +96,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     private void handleResponse(UserModel userModel) {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
+        userID = userModel.id;
+        System.out.println(userID);
+
+        Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent2);
     }
 
     private void handleError(Throwable throwable) {
@@ -106,6 +113,37 @@ public class LoginActivity extends AppCompatActivity {
         super.onDestroy();
         compositeDisposable.clear();
     }
+
+
+}
+
+
+/*  requestData eski içi
+        UserModel userModel = new UserModel(binding.email.getText().toString().trim(), binding.password.getText().toString());
+        UserAPI userAPI = retrofit.create(UserAPI.class);
+
+
+
+        Call<UserModel> call = userAPI.sendData(userModel);
+
+        call.enqueue(new Callback<UserModel>() {
+            @Override
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                if (response.isSuccessful()){
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    //intent.putExtra("email", response.body().email);
+                    startActivity(intent);
+                }else
+                    Toast.makeText(LoginActivity.this, "Yanlış Şifre veya E-posta Girdiniz!", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<UserModel> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Api'ya Erişilemedi", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });*/
+
+
 
 
     /*public void loadData(){
@@ -144,31 +182,3 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }*/
-
-}
-
-
-/*  requestData eski içi
-        UserModel userModel = new UserModel(binding.email.getText().toString().trim(), binding.password.getText().toString());
-        UserAPI userAPI = retrofit.create(UserAPI.class);
-
-
-
-        Call<UserModel> call = userAPI.sendData(userModel);
-
-        call.enqueue(new Callback<UserModel>() {
-            @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                if (response.isSuccessful()){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    //intent.putExtra("email", response.body().email);
-                    startActivity(intent);
-                }else
-                    Toast.makeText(LoginActivity.this, "Yanlış Şifre veya E-posta Girdiniz!", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Api'ya Erişilemedi", Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });*/

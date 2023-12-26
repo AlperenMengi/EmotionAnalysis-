@@ -32,9 +32,7 @@ public class AnswersActivity extends AppCompatActivity {
         answerList2 = answersList;
         if (answerList2.size() == 0)
             Toast.makeText(this, "liste boş", Toast.LENGTH_SHORT).show();
-        for (String answer : answerList2){
-            System.out.println(answer);
-        }
+
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         AnswersAdapter answersAdapter = new AnswersAdapter(answerList2);
         binding.recyclerView.setAdapter(answersAdapter);

@@ -38,6 +38,7 @@ public class LastPageActivity extends AppCompatActivity {
     int pointHopeless = 0;
     int i = 0;
     String whichTest;
+    String whichTestMakeEvaluateActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,32 +48,37 @@ public class LastPageActivity extends AppCompatActivity {
         setContentView(view);
 
         whichTest = getIntent().getStringExtra("test"); // hangi testten gelindiğini belirledik
-        if (whichTest.equals("hopeless")){
-            answersListHopeless = getIntent().getStringArrayListExtra("answers");
-            optionsListHopeless = getIntent().getStringArrayListExtra("options");
-            for (i = 0; i < optionsListHopeless.size(); i++){
-                if (i == 0 || i == 2 || i == 4 || i == 5 || i == 7 || i == 9 || i == 12 || i == 14 || i == 18){
-                    if (optionsListHopeless.get(i).equals("B"))
-                        pointHopeless++;
+        //whichTestMakeEvaluateActivity = getIntent().getStringExtra("returnWhichTest");
+        //if içinde || whichTest2.equals yazarız.
+        if(whichTest != null){
+            if (whichTest.equals("hopeless")){
+                answersListHopeless = getIntent().getStringArrayListExtra("answers");
+                optionsListHopeless = getIntent().getStringArrayListExtra("options");
+                for (i = 0; i < optionsListHopeless.size(); i++){
+                    if (i == 0 || i == 2 || i == 4 || i == 5 || i == 7 || i == 9 || i == 12 || i == 14 || i == 18){
+                        if (optionsListHopeless.get(i).equals("B"))
+                            pointHopeless++;
+                    }
+                    else{
+                        if (optionsListHopeless.get(i).equals("A"))
+                            pointHopeless++;
+                    }
                 }
-                else{
-                    if (optionsListHopeless.get(i).equals("A"))
-                        pointHopeless++;
-                }
+                binding.resultText.setText("Sonucunuz : " + pointHopeless + "/20" + " puan");
+                printHopeless(pointHopeless, "Umutsuzluk");
             }
-            binding.resultText.setText("Sonucunuz : " + pointHopeless + "/20" + " puan");
-            printHopeless(pointHopeless, "Umutsuzluk");
+
+            if (whichTest.equals("depression")){
+                answersListDepression = getIntent().getStringArrayListExtra("answers");
+                optionsListDepression = getIntent().getStringArrayListExtra("options");
+
+                int pointDepression = sonucHesapla(optionsListDepression);
+                binding.resultText.setText("Sonucunuz : " + pointDepression + "/60" + " puan");
+                printDepression(pointDepression, "Depresyon");
+
+            }
         }
 
-        if (whichTest.equals("depression")){
-            answersListDepression = getIntent().getStringArrayListExtra("answers");
-            optionsListDepression = getIntent().getStringArrayListExtra("options");
-
-            int pointDepression = sonucHesapla(optionsListDepression);
-            binding.resultText.setText("Sonucunuz : " + pointDepression + "/60" + " puan");
-            printDepression(pointDepression, "Depresyon");
-
-        }
     }
 
     public int sonucHesapla(List<String> optionsList){
@@ -150,13 +156,14 @@ public class LastPageActivity extends AppCompatActivity {
     }
 
     public void seeAllEvaluate(View view) {
-        Toast.makeText(this, "Değerlendirme sayfasına gidilecek", Toast.LENGTH_SHORT).show();
-        //Intent intent = new Intent(LastPageActivity.this, EvaluatesActivity.class);
-        //startActivity(intent);
+        //Toast.makeText(this, "Değerlendirme sayfasına gidilecek", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(LastPageActivity.this, EvaluatesActivity.class);
+        startActivity(intent);
     }
 
     public void makeEvaluate(View view) {
         Intent intent = new Intent(LastPageActivity.this, MakeEvaluateActivity.class);
+        intent.putExtra("whichTest", whichTest); // MakeEvaluateActivity'den geri döndüğümüzde hata çıkmasın diye.
         startActivity(intent);
     }
 
