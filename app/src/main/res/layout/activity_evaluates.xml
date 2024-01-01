@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.EvaluatesActivity">
+    tools:context=".Views.EvaluatesActivity"
+    android:background="@drawable/background_first_page2">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
@@ -24,6 +25,7 @@
         android:text="Değerlendirmeler"
         android:textAlignment="center"
         android:textSize="30sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

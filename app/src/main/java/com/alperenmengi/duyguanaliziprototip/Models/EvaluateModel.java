@@ -6,19 +6,16 @@ import java.util.List;
 
 public class EvaluateModel {
     @SerializedName("_id")
-    public String id;
-
+    public String feedbackID;
     @SerializedName("rating")
     public int rating;
-
     @SerializedName("comment")
     public String comment;
-
     @SerializedName("user")
     public EvaluateUserModel user;
 
-    public EvaluateModel(String id, int rating, String comment) {
-        this.id = id;
+    public EvaluateModel(String feedbackID, int rating, String comment) {
+        this.feedbackID = feedbackID;
         this.rating = rating;
         this.comment = comment;
     }

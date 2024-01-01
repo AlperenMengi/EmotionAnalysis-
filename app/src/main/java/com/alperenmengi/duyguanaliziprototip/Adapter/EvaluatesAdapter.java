@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alperenmengi.duyguanaliziprototip.databinding.EvaluateRowBinding;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EvaluatesAdapter extends RecyclerView.Adapter<EvaluatesAdapter.EvaluatesHolder> {
@@ -16,11 +17,13 @@ public class EvaluatesAdapter extends RecyclerView.Adapter<EvaluatesAdapter.Eval
     private ArrayList<String> nameList;
     private ArrayList<Integer> ratingList;
     private ArrayList<String> commentList;
+    private ArrayList<String> feedbackIDList;
 
-    public EvaluatesAdapter(ArrayList<String> nameList, ArrayList<Integer> ratingList, ArrayList<String> commentList) {
+    public EvaluatesAdapter(ArrayList<String> nameList, ArrayList<Integer> ratingList, ArrayList<String> commentList, ArrayList<String> feedbackIDList) {
         this.nameList = nameList;
         this.ratingList = ratingList;
         this.commentList = commentList;
+        this.feedbackIDList = feedbackIDList;
     }
 
     @NonNull
@@ -32,15 +35,15 @@ public class EvaluatesAdapter extends RecyclerView.Adapter<EvaluatesAdapter.Eval
 
     @Override
     public void onBindViewHolder(@NonNull EvaluatesHolder holder, int position) {
-        holder.binding.nameText.setText("Kullanıcı : " + nameList.get(position));
-        holder.binding.ratingText.setText("Puan : " + ratingList.get(position).toString()+ "/5");
-        holder.binding.commentText.setText("Yorum : " + commentList.get(position));
+        holder.binding.nameText.setText(nameList.get(position));
+        holder.binding.commentText.setText(commentList.get(position));
+        holder.binding.ratingBar.setRating(ratingList.get(position));
 
     }
 
     @Override
     public int getItemCount() {
-        return nameList.size();
+        return feedbackIDList.size();
     }
 
 

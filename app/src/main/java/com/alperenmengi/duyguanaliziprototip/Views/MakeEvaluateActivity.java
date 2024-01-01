@@ -83,12 +83,13 @@ public class MakeEvaluateActivity extends AppCompatActivity {
     }
 
     public void requestData(){
-        if (!(binding.editTextTextMultiLine.getText().toString()).equals("")){
+        /*if (!(binding.editTextTextMultiLine.getText().toString()).equals("")){
             evaluateModel = new EvaluateModel(userID, rating, binding.editTextTextMultiLine.getText().toString());
             System.out.println("request data içi userID : " + userID);
         }
         else
-            Toast.makeText(this, "Lütfen bir değerlendirme giriniz!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Lütfen bir değerlendirme giriniz!", Toast.LENGTH_SHORT).show();*/
+        evaluateModel = new EvaluateModel(userID, rating, binding.editTextTextMultiLine.getText().toString());
 
         FeedbackAPI feedbackAPI = retrofit.create(FeedbackAPI.class);
 
@@ -96,11 +97,12 @@ public class MakeEvaluateActivity extends AppCompatActivity {
         call.enqueue(new Callback<EvaluateModel>() {
             @Override
             public void onResponse(Call<EvaluateModel> call, Response<EvaluateModel> response) {
-                if (response.isSuccessful())
+                if (response.isSuccessful()){
                     Toast.makeText(MakeEvaluateActivity.this, "Değerlendirmeniz Başarıyla Kaydedildi.", Toast.LENGTH_SHORT).show();
                     /*Intent intent = new Intent(MakeEvaluateActivity.this, LastPageActivity.class);
                     intent.putExtra("returnWhichTest", whichTest);
                     startActivity(intent);*/
+                }
             }
             @Override
             public void onFailure(Call<EvaluateModel> call, Throwable t) {

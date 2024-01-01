@@ -35,6 +35,7 @@ public class EvaluatesActivity extends AppCompatActivity {
     public ArrayList<String> commentArrayList;
     public ArrayList<Integer> ratingArrayList;
     public ArrayList<String> nameArrayList;
+    public ArrayList<String> feedbackArrayList;
     ArrayList<EvaluateModel> evaluateModels;
 
     EvaluatesAdapter evaluatesAdapter;
@@ -50,6 +51,7 @@ public class EvaluatesActivity extends AppCompatActivity {
         commentArrayList = new ArrayList<>();
         ratingArrayList = new ArrayList<>();
         nameArrayList = new ArrayList<>();
+        feedbackArrayList = new ArrayList<>();
 
         Gson gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder()
@@ -75,14 +77,16 @@ public class EvaluatesActivity extends AppCompatActivity {
                     if (evaluate.user!=null){
                         nameArrayList.add(evaluate.user.name);
                         System.out.println(evaluate.user.name);
+                        System.out.println(evaluate.feedbackID);
                     }
                     commentArrayList.add(evaluate.comment);
                     System.out.println(evaluate.comment);
                     ratingArrayList.add(evaluate.rating);
                     System.out.println(evaluate.rating);
+                    feedbackArrayList.add(evaluate.feedbackID);
 
                     binding.recyclerView2.setLayoutManager(new LinearLayoutManager(EvaluatesActivity.this));
-                    evaluatesAdapter = new EvaluatesAdapter(nameArrayList, ratingArrayList, commentArrayList);
+                    evaluatesAdapter = new EvaluatesAdapter(nameArrayList, ratingArrayList, commentArrayList, feedbackArrayList);
                     binding.recyclerView2.setAdapter(evaluatesAdapter);
 
 

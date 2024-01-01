@@ -24,13 +24,31 @@
         android:id="@+id/editTextTextMultiLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="43dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="112dp"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="Değerlendirmenizi Buraya Giriniz"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/seeEvaulateButton"
+        android:maxLines="3"
+        app:layout_constraintBottom_toTopOf="@+id/sendEvaluateButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="192dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTextMultiLine"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_baseline_sendevaluate" />
 
     <Button
         android:id="@+id/sendEvaluateButton"
@@ -52,36 +70,26 @@
         android:layout_width="407dp"
         android:layout_height="345dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="146dp"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/evaluateperson3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/seeEvaulateButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="21dp"
-        android:onClick="degerlendirmeleriGor"
-        android:text="Değerlendirmeleri Gör"
-        app:layout_constraintBottom_toTopOf="@+id/sendEvaluateButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:stepSize="1.0"
-        android:progressTint="#FFD700"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:progressTint="#FFD700"
+        android:stepSize="1.0"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

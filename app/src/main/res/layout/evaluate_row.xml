@@ -8,7 +8,8 @@
     android:layout_marginTop="2dp"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,22 +29,40 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:text="name"
+            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="38dp" />
 
-        <TextView
-            android:id="@+id/ratingText"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="rating"
-            android:textSize="20sp"
-            tools:layout_editor_absoluteX="36dp"
-            tools:layout_editor_absoluteY="65dp" />
+            android:orientation="horizontal">
+
+            <!--<TextView
+                android:id="@+id/ratingBarText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Puan : "
+                android:textColor="@color/black"
+                android:textSize="20sp" />-->
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:progressTint="#FFD700"
+                android:stepSize="1.0"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/commentText"
@@ -54,10 +73,13 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="10dp"
             android:text="comment"
+            android:textColor="@color/black"
             android:textSize="20sp"
             tools:layout_editor_absoluteX="36dp"
             tools:layout_editor_absoluteY="116dp" />
 
+
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
