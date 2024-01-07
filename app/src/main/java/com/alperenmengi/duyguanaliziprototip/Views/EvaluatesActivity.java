@@ -85,6 +85,7 @@ public class EvaluatesActivity extends AppCompatActivity {
                     System.out.println(evaluate.rating);
                     feedbackArrayList.add(evaluate.feedbackID);
 
+                    //Adapter ile activitenin bağlandığı kısım
                     binding.recyclerView2.setLayoutManager(new LinearLayoutManager(EvaluatesActivity.this));
                     evaluatesAdapter = new EvaluatesAdapter(nameArrayList, ratingArrayList, commentArrayList, feedbackArrayList);
                     binding.recyclerView2.setAdapter(evaluatesAdapter);

@@ -24,18 +24,22 @@ public class LastPageActivity extends AppCompatActivity {
 
     private ArrayList<String> answersListDepression;
     private ArrayList<String> answersListHopeless;
+    private ArrayList<String> answersListRosenbergD1;
+    private ArrayList<String> answersListRosenbergD7;
     private ArrayList<String> optionsListDepression;
     private ArrayList<String> optionsListHopeless;
+    private ArrayList<String> optionsListRosenbergD1;
+    private ArrayList<String> optionsListRosenbergD7;
 
-    int countA = 0;
-    int countB = 0;
-    int countC = 0;
-    int countD = 0;
-    int pointA = 0;
-    int pointB = 1;
-    int pointC = 2;
-    int pointD = 3;
-    int pointHopeless = 0;
+    float countA = 0;
+    float countB = 0;
+    float countC = 0;
+    float countD = 0;
+    float pointA = 0;
+    float pointB = 1;
+    float pointC = 2;
+    float pointD = 3;
+    float pointHopeless = 0;
     int i = 0;
     String whichTest;
     String whichTestMakeEvaluateActivity;
@@ -54,17 +58,9 @@ public class LastPageActivity extends AppCompatActivity {
             if (whichTest.equals("hopeless")){
                 answersListHopeless = getIntent().getStringArrayListExtra("answers");
                 optionsListHopeless = getIntent().getStringArrayListExtra("options");
-                for (i = 0; i < optionsListHopeless.size(); i++){
-                    if (i == 0 || i == 2 || i == 4 || i == 5 || i == 7 || i == 9 || i == 12 || i == 14 || i == 18){
-                        if (optionsListHopeless.get(i).equals("B"))
-                            pointHopeless++;
-                    }
-                    else{
-                        if (optionsListHopeless.get(i).equals("A"))
-                            pointHopeless++;
-                    }
-                }
-                binding.resultText.setText("Sonucunuz : " + pointHopeless + "/20" + " puan");
+
+                pointHopeless = sonucHesaplaHopeless(optionsListHopeless);
+                binding.resultText.setText("Sonucunuz : " + pointHopeless + "/20 puan");
                 printHopeless(pointHopeless, "Umutsuzluk");
             }
 
@@ -72,19 +68,178 @@ public class LastPageActivity extends AppCompatActivity {
                 answersListDepression = getIntent().getStringArrayListExtra("answers");
                 optionsListDepression = getIntent().getStringArrayListExtra("options");
 
-                int pointDepression = sonucHesapla(optionsListDepression);
-                binding.resultText.setText("Sonucunuz : " + pointDepression + "/60" + " puan");
+                float pointDepression = sonucHesaplaDepression(optionsListDepression);
+                binding.resultText.setText("Sonucunuz : " + pointDepression + "/60 puan");
                 printDepression(pointDepression, "Depresyon");
 
+            }
+            if (whichTest.equals("rosenbergD1")){
+                answersListRosenbergD1 = getIntent().getStringArrayListExtra("answers");
+                optionsListRosenbergD1  = getIntent().getStringArrayListExtra("options");
+
+                float pointRosenbergD1 = sonucHesaplaRosenbergD1(optionsListRosenbergD1);
+                binding.resultText.setText("Sonucunuz : " + pointRosenbergD1 + "/6 puan");
+                printRosenbergD1(pointRosenbergD1, "Benlik Saygısı'na");
+            }
+            if (whichTest.equals("rosenbergD7")){
+                answersListRosenbergD7 = getIntent().getStringArrayListExtra("answers");
+                optionsListRosenbergD7 =getIntent().getStringArrayListExtra("options");
+
+                float pointRosenbergD7 = sonucHesaplaRosenbergD7(optionsListRosenbergD7);
+                binding.resultText.setText("Sonucunuz : " + pointRosenbergD7 + "/10 puan");
+                printRosenbergD7(pointRosenbergD7, "Psikosomatik Belirti'ye");
             }
         }
 
     }
 
-    public int sonucHesapla(List<String> optionsList){
+
+
+    private float sonucHesaplaHopeless(ArrayList<String> optionsListHopeless) {
+        for (i = 0; i < optionsListHopeless.size(); i++){
+            if (i == 0 || i == 2 || i == 4 || i == 5 || i == 7 || i == 9 || i == 12 || i == 14 || i == 18){
+                if (optionsListHopeless.get(i).equals("B"))
+                    pointHopeless++;
+            }
+            else{
+                if (optionsListHopeless.get(i).equals("A"))
+                    pointHopeless++;
+            }
+        }
+        return pointHopeless;
+    }
+
+    private float sonucHesaplaRosenbergD7(List<String> optionsListRosenbergD7) {
+        float RD7pointA=1;
+        float RD7pointB=1;
+        // C ve D soruları 0 puan
+
+        for (i = 0; i < optionsListRosenbergD7.size(); i++){
+            if (optionsListRosenbergD7.get(i).equals("A"))
+                countA++;
+            else if (optionsListRosenbergD7.get(i).equals("B"))
+                countB++;
+        }
+        return (RD7pointA * countA) + (RD7pointB * countB);
+    }
+
+
+    private float sonucHesaplaRosenbergD1(List<String> optionsListRosenbergD1) {
+        float RD1pointA=0;
+        float RD1pointB=0;
+        float RD1pointC=0;
+        float RD1pointD=0;
+
+        for (i = 0; i < optionsListRosenbergD1.size(); i++){
+            if (i == 1){
+                if (optionsListRosenbergD1.get(i).equals("C")){
+                    RD1pointC += 0.17;
+                    countC++;
+                }
+                else if (optionsListRosenbergD1.get(i).equals("D")){
+                    RD1pointD += 0.34;
+                    countD++;
+                }
+            }
+            if (i == 2){
+                if (optionsListRosenbergD1.get(i).equals("C")){
+                    RD1pointC += 0.16;
+                    countC++;
+                }
+                else if (optionsListRosenbergD1.get(i).equals("D")){
+                    RD1pointD += 0.33;
+                    countD++;
+                }
+            }
+            if (i == 3){
+                if (optionsListRosenbergD1.get(i).equals("A")){
+                    RD1pointA += 0.17;
+                    countA++;
+                }
+                else if (optionsListRosenbergD1.get(i).equals("B")){
+                    RD1pointB += 0.33;
+                    countB++;
+                }
+            }
+            if (i == 4){
+                if (optionsListRosenbergD1.get(i).equals("C")){
+                    RD1pointC += 0.25;
+                    countC++;
+                }
+                else if (optionsListRosenbergD1.get(i).equals("D")){
+                    RD1pointD += 0.50;
+                    countD++;
+                }
+            }
+            if (i == 5){
+                if (optionsListRosenbergD1.get(i).equals("C")){
+                    RD1pointC += 0.25;
+                    countC++;
+                }
+                else if (optionsListRosenbergD1.get(i).equals("D")){
+                    RD1pointD += 0.50;
+                    countD++;
+                }
+            }
+            if (i == 6){
+                if (optionsListRosenbergD1.get(i).equals("C")){
+                    RD1pointC += 0.50;
+                    countC++;
+                }
+                else if (optionsListRosenbergD1.get(i).equals("D")){
+                    RD1pointD += 1;
+                    countD++;
+                }
+            }
+            if (i == 7){
+                if (optionsListRosenbergD1.get(i).equals("C")){
+                    RD1pointC += 0.50;
+                    countC++;
+                }
+                else if (optionsListRosenbergD1.get(i).equals("D")){
+                    RD1pointD += 1;
+                    countD++;
+                }
+            }
+            if (i == 8){
+                if (optionsListRosenbergD1.get(i).equals("A")){
+                    RD1pointA += 1;
+                    countA++;
+                }
+                else if (optionsListRosenbergD1.get(i).equals("B")){
+                    RD1pointB += 0.50;
+                    countB++;
+                }
+            }
+            if (i == 9){
+                if (optionsListRosenbergD1.get(i).equals("A")){
+                    RD1pointA += 0.50;
+                    countA++;
+                }
+                else if (optionsListRosenbergD1.get(i).equals("B")){
+                    RD1pointB += 0.25;
+                    countB++;
+                }
+            }
+            if (i == 10){
+                if (optionsListRosenbergD1.get(i).equals("A")){
+                    RD1pointA += 0.50;
+                    countA++;
+                }
+                else if (optionsListRosenbergD1.get(i).equals("B")){
+                    RD1pointB += 0.25;
+                    countB++;
+                }
+            }
+        }
+
+        return (RD1pointA + RD1pointB + RD1pointC + RD1pointD);
+    }
+
+    public float sonucHesaplaDepression(List<String> optionsList){
         for (String option : optionsList){
             if (option.equals("A"))
-                countA+=1;
+                countA++;
             if (option.equals("B"))
                 countB++;
             if (option.equals("C"))
@@ -94,7 +249,34 @@ public class LastPageActivity extends AppCompatActivity {
         }
         return ((pointA*countA) +(pointB*countB)+(pointC*countC)+(pointD*countD));
     }
-    public void printHopeless(int point, String test){
+
+    private void printRosenbergD7(float pointRosenbergD7, String test) {
+        if (pointRosenbergD7 >= 0 && pointRosenbergD7 <= 2){
+            binding.healthText.setText("Az Derecede " + test + " Sahipsiniz.");
+        }
+        if (pointRosenbergD7 > 2 && pointRosenbergD7 <= 4){
+            binding.healthText.setText("Orta Derecede " + test + " Sahipsiniz.");
+        }
+        if (pointRosenbergD7 > 5){
+            binding.healthText.setText("Yüksek Derecede " + test + " Sahipsiniz.");
+        }
+    }
+
+
+    private void printRosenbergD1(float point, String test) {
+        if (point > 0 && point <= 2) {
+            binding.healthText.setText("Yüksek Derecede " + test + " Sahibisiniz.");
+        }
+        if (point > 2 && point <= 4) {
+            binding.healthText.setText("Orta Derecede " + test + " Sahibisiniz.");
+        }
+        if (point > 5 && point <= 6) {
+            binding.healthText.setText("Düşük Derecede " + test + " Sahibisiniz.");
+        }
+
+    }
+
+    public void printHopeless(float point, String test){
         if (point >= 0 && point <= 3){
             binding.healthText.setText("Minimal Derecede "+ test + " Sahibisiniz.");
             binding.suggestionText.setText("Şu an içinde bulunduğunuz durum, küçük adımlarla aşılabilecek bir zorluktur. Çözüme odaklanın, çünkü her sorunun bir çözümü vardır.");
@@ -117,7 +299,7 @@ public class LastPageActivity extends AppCompatActivity {
             binding.specialText.setText("Bir karanlık tünelin sonunda her zaman bir ışık vardır. Şimdi, kendi ışığını yaratma zamanı.");
         }
     }
-    public void printDepression(int point, String test){
+    public void printDepression(float point, String test){
         if (point >= 0 && point <= 9){
             binding.healthText.setText("Minimal Derecede "+ test + " Sahibisiniz.");
             binding.suggestionText.setText("Şu an hissettiğiniz duygular, kolayca yönetilebilecek bir düzeyde. İhtiyaç duyduğunuz destekle, bu geçici zorluğun üstesinden gelebilirsiniz.");
@@ -151,7 +333,12 @@ public class LastPageActivity extends AppCompatActivity {
             intent.putStringArrayListExtra("answers", new ArrayList<>(answersListDepression));
         if (whichTest.equals("hopeless"))
             intent.putStringArrayListExtra("answers", new ArrayList<>(answersListHopeless));
+        if (whichTest.equals("rosenbergD1"))
+            intent.putStringArrayListExtra("answers", new ArrayList<>(answersListRosenbergD1));
+        if (whichTest.equals("rosenbergD7"))
+            intent.putStringArrayListExtra("answers", new ArrayList<>(answersListRosenbergD7));
         startActivity(intent);
+
 
     }
 

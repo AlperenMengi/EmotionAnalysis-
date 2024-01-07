@@ -49,4 +49,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, QuestionsActivity.class);
         startActivity(intent);
     }
+
+    public void rosenbergD1Test(View view) {
+        Intent intent = new Intent(MainActivity.this, RosenbergD1Activity.class);
+        startActivity(intent);
+    }
+
+    public void rosenbergD7Test(View view) {
+        Intent intent = new Intent(MainActivity.this, RosenbergD7Activity.class);
+        startActivity(intent);
+    }
 }

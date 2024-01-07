@@ -102,7 +102,6 @@ public class QuestionsActivity extends AppCompatActivity {
                 binding.nextButton.setText("SONUCUNU GÖR");
 
             if(currentQuestion == (questionModelList.size())){ // son soruya gelinmişse teşekkür ekranına git.
-
                 Intent intent = new Intent(this,LastPageActivity.class);
                 intent.putExtra("test", depression);
                 intent.putStringArrayListExtra("answers", choosenAnswersList);
