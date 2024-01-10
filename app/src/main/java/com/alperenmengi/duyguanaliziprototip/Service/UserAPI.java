@@ -22,7 +22,11 @@ public interface UserAPI {
     //Call<List<UserModel>> sendData(@Field("name") String name, @Field("password") String password);
 
     @POST("auth/login")
-    Observable<UserModel> sendData(@Body UserModel userModel);
+    Call<UserModel> sendData(@Body UserModel userModel);
+
+    @POST("auth/register")
+    Call<UserModel> sendUser(@Body UserModel userModel);
+
 
 
 }

@@ -21,7 +21,9 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,6 +62,9 @@ public class MakeEvaluateActivity extends AppCompatActivity {
         nameArrayList = new ArrayList<>();
         whichTest = getIntent().getStringExtra("whichTest");
 
+        //if (binding.editTextTextMultiLine.equals(""))
+            //binding.sendEvaluateButton.setClickable(false);
+
         binding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -68,17 +73,25 @@ public class MakeEvaluateActivity extends AppCompatActivity {
         });
 
         LoginActivity loginActivity = new LoginActivity();
-        userID = loginActivity.userID;
-        System.out.println("MakeEvaluateActivity userID : "+ userID);
+        userID = loginActivity.getUserID();
+        System.out.println("MakeEvaluateActivity userID : " + userID);
 
         Gson gson = new GsonBuilder().setLenient().create();
+
+        //TimeoutException'u engellemek için bunu yaptım bakalım. İşe yarayacak mı bilmiyorum.
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15,TimeUnit.SECONDS).build();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)// buradan bir json verisi alacağımızı söylüyoruz.
                 .addConverterFactory(GsonConverterFactory.create(gson))// gelen JSON'ı modele göre alacağımıız retrofite de bidirmek için bu kısmı yazıyoruz
+                .client(client)
                 .build();
 
         binding.sendEvaluateButton.setOnClickListener(view1 -> requestData());
         //binding.seeEvaulateButton.setOnClickListener(view2 -> loadData());
+
 
     }
 
@@ -106,8 +119,8 @@ public class MakeEvaluateActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<EvaluateModel> call, Throwable t) {
-                Toast.makeText(MakeEvaluateActivity.this, "Değerlendirme yollanamadı!", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
+                Toast.makeText(MakeEvaluateActivity.this, "Değerlendirme yollanamadı!", Toast.LENGTH_SHORT).show();
             }
         });
     }

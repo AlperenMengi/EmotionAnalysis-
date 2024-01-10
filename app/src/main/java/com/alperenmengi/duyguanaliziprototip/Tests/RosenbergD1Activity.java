@@ -1,4 +1,4 @@
-package com.alperenmengi.duyguanaliziprototip.Views;
+package com.alperenmengi.duyguanaliziprototip.Tests;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.alperenmengi.duyguanaliziprototip.Models.QuestionModel;
 import com.alperenmengi.duyguanaliziprototip.R;
+import com.alperenmengi.duyguanaliziprototip.Views.LastPageActivity;
+import com.alperenmengi.duyguanaliziprototip.Views.MainActivity;
 import com.alperenmengi.duyguanaliziprototip.databinding.ActivityHopelessBinding;
 import com.alperenmengi.duyguanaliziprototip.databinding.ActivityRosenbergD1Binding;
 
@@ -98,11 +100,12 @@ public class RosenbergD1Activity extends AppCompatActivity {
                 binding.nextButton.setText("SONUCUNU GÖR");
 
             if(currentQuestion == (questionModelList.size())){ // son soruya gelinmişse teşekkür ekranına git.
-                Intent intent = new Intent(this,LastPageActivity.class);
+                Intent intent = new Intent(this, LastPageActivity.class);
                 intent.putExtra("test", rosenbergD1);
                 intent.putStringArrayListExtra("answers", choosenAnswersList);
                 intent.putStringArrayListExtra("options", choosenOptionList);
                 startActivity(intent);
+                RosenbergD1Activity.this.finish();
             }
             else{//son soru değilse diğer soruları getir
                 soruCevaplar(); // diğer soru ve cevapları yüklemek için
@@ -123,6 +126,7 @@ public class RosenbergD1Activity extends AppCompatActivity {
         if (currentQuestion == 0) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            RosenbergD1Activity.this.finish();
         } else {
             currentQuestion -= 1;
             // Print the selected answer for the current question

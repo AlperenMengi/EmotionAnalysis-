@@ -26,20 +26,26 @@ public class LastPageActivity extends AppCompatActivity {
     private ArrayList<String> answersListHopeless;
     private ArrayList<String> answersListRosenbergD1;
     private ArrayList<String> answersListRosenbergD7;
+    private ArrayList<String> answersListAnxiety;
+    private ArrayList<String> answersListWellBeing;
     private ArrayList<String> optionsListDepression;
     private ArrayList<String> optionsListHopeless;
     private ArrayList<String> optionsListRosenbergD1;
     private ArrayList<String> optionsListRosenbergD7;
+    private ArrayList<String> optionsListAnxiety;
+    private ArrayList<String> optionsListWellBeing;
 
     float countA = 0;
     float countB = 0;
     float countC = 0;
     float countD = 0;
+    float countE = 0;
     float pointA = 0;
     float pointB = 1;
     float pointC = 2;
     float pointD = 3;
-    float pointHopeless = 0;
+    float pointE = 4;
+    int pointHopeless = 0;
     int i = 0;
     String whichTest;
     String whichTestMakeEvaluateActivity;
@@ -59,7 +65,7 @@ public class LastPageActivity extends AppCompatActivity {
                 answersListHopeless = getIntent().getStringArrayListExtra("answers");
                 optionsListHopeless = getIntent().getStringArrayListExtra("options");
 
-                pointHopeless = sonucHesaplaHopeless(optionsListHopeless);
+                pointHopeless = (int) sonucHesaplaHopeless(optionsListHopeless);
                 binding.resultText.setText("Sonucunuz : " + pointHopeless + "/20 puan");
                 printHopeless(pointHopeless, "Umutsuzluk");
             }
@@ -68,7 +74,7 @@ public class LastPageActivity extends AppCompatActivity {
                 answersListDepression = getIntent().getStringArrayListExtra("answers");
                 optionsListDepression = getIntent().getStringArrayListExtra("options");
 
-                float pointDepression = sonucHesaplaDepression(optionsListDepression);
+                int pointDepression = (int) sonucHesaplaDepression(optionsListDepression);
                 binding.resultText.setText("Sonucunuz : " + pointDepression + "/60 puan");
                 printDepression(pointDepression, "Depresyon");
 
@@ -89,11 +95,91 @@ public class LastPageActivity extends AppCompatActivity {
                 binding.resultText.setText("Sonucunuz : " + pointRosenbergD7 + "/10 puan");
                 printRosenbergD7(pointRosenbergD7, "Psikosomatik Belirti'ye");
             }
+            if (whichTest.equals("anxiety")){
+                answersListAnxiety = getIntent().getStringArrayListExtra("answers");
+                optionsListAnxiety =getIntent().getStringArrayListExtra("options");
+
+                int pointAnxiety = sonucHesaplaAnxiety(optionsListAnxiety);
+                binding.resultText.setText("Sonucunuz : " + pointAnxiety + "/63 puan");
+                printAnxiety(pointAnxiety, "Anksiyete'ye");
+
+            }
+            if (whichTest.equals("wellbeing")){
+                answersListWellBeing = getIntent().getStringArrayListExtra("answers");
+                optionsListWellBeing =getIntent().getStringArrayListExtra("options");
+
+                int pointWellBeing= sonucHesaplaWellBeing(optionsListWellBeing);
+                binding.resultText.setText("Sonucunuz : " + pointWellBeing + "/70 puan");
+                printWellBeing(pointWellBeing, "İyi Oluş Seviyesi'ne");
+
+
+
+            }
+
+
         }
 
     }
 
+    private void printWellBeing(int pointWellBeing, String test) {
+        if (pointWellBeing >= 0 && pointWellBeing <=32){
+            binding.healthText.setText("Düşük " + test + " Sahipsiniz.");
+        }
+        if (pointWellBeing >= 33 && pointWellBeing <=40){
+            binding.healthText.setText("Orta " + test + " Sahipsiniz.");
+        }
+        if (pointWellBeing >= 41 && pointWellBeing <=48){
+            binding.healthText.setText("İyi " + test + " Sahipsiniz.");
+        }
+        if (pointWellBeing >= 49 && pointWellBeing <=56){
+            binding.healthText.setText("Yüksek " + test + " Sahipsiniz.");
+        }
+        if (pointWellBeing >= 57 && pointWellBeing <=70){
+            binding.healthText.setText("Çok Yüksek " + test + " Sahipsiniz.");
+        }
+    }
 
+    private void printAnxiety(int pointAnxiety, String test) {
+        if (pointAnxiety >= 0 && pointAnxiety <= 15){
+            binding.healthText.setText("Hafif Derecede " + test + " Sahipsiniz.");
+        }
+        if (pointAnxiety >= 16 && pointAnxiety <= 25){
+            binding.healthText.setText("Orta Derecede " + test + " Sahipsiniz.");
+        }
+        if (pointAnxiety >= 26 && pointAnxiety <= 63){
+            binding.healthText.setText("Şiddetli Derecede " + test + " Sahipsiniz.");
+        }
+    }
+
+    private int sonucHesaplaWellBeing(ArrayList<String> optionsListWellBeing) {
+        for (String option : optionsListWellBeing) {
+            if (option.equals("A"))
+                countA++;
+            if (option.equals("B"))
+                countB++;
+            if (option.equals("C"))
+                countC++;
+            if (option.equals("D"))
+                countD++;
+            if (option.equals("E"))
+                countE++;
+        }
+        return (int) (((pointA+1)*countA)+((pointB+1)*countB)+((pointC+1)*countC)+((pointD+1)*countD)+((pointE+1)*countE));
+    }
+
+    private int sonucHesaplaAnxiety(ArrayList<String> optionsListAnxiety) {
+        for (String option : optionsListAnxiety) {
+            if (option.equals("A"))
+                countA++;
+            if (option.equals("B"))
+                countB++;
+            if (option.equals("C"))
+                countC++;
+            if (option.equals("D"))
+                countD++;
+        }
+        return (int) ((pointA*countA) +(pointB*countB)+(pointC*countC)+(pointD*countD));
+    }
 
     private float sonucHesaplaHopeless(ArrayList<String> optionsListHopeless) {
         for (i = 0; i < optionsListHopeless.size(); i++){
@@ -122,7 +208,6 @@ public class LastPageActivity extends AppCompatActivity {
         }
         return (RD7pointA * countA) + (RD7pointB * countB);
     }
-
 
     private float sonucHesaplaRosenbergD1(List<String> optionsListRosenbergD1) {
         float RD1pointA=0;
@@ -262,7 +347,6 @@ public class LastPageActivity extends AppCompatActivity {
         }
     }
 
-
     private void printRosenbergD1(float point, String test) {
         if (point > 0 && point <= 2) {
             binding.healthText.setText("Yüksek Derecede " + test + " Sahibisiniz.");
@@ -299,6 +383,7 @@ public class LastPageActivity extends AppCompatActivity {
             binding.specialText.setText("Bir karanlık tünelin sonunda her zaman bir ışık vardır. Şimdi, kendi ışığını yaratma zamanı.");
         }
     }
+
     public void printDepression(float point, String test){
         if (point >= 0 && point <= 9){
             binding.healthText.setText("Minimal Derecede "+ test + " Sahibisiniz.");
@@ -337,6 +422,10 @@ public class LastPageActivity extends AppCompatActivity {
             intent.putStringArrayListExtra("answers", new ArrayList<>(answersListRosenbergD1));
         if (whichTest.equals("rosenbergD7"))
             intent.putStringArrayListExtra("answers", new ArrayList<>(answersListRosenbergD7));
+        if (whichTest.equals("anxiety"))
+            intent.putStringArrayListExtra("answers", new ArrayList<>(answersListAnxiety));
+        if (whichTest.equals("wellbeing"))
+            intent.putStringArrayListExtra("answers", new ArrayList<>(answersListWellBeing));
         startActivity(intent);
 
 

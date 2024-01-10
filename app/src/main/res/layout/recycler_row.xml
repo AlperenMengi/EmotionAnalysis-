@@ -12,9 +12,10 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:layout_marginRight="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="5dp" />
+        tools:layout_editor_absoluteY="5dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

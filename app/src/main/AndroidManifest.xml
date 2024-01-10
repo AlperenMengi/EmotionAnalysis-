@@ -15,13 +15,25 @@
         android:theme="@style/Theme.DuyguAnaliziPrototip"
         tools:targetApi="31">
         <activity
-            android:name=".Views.RosenbergD7Activity"
+            android:name=".Views.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.RosenbergD1Activity"
+            android:name=".Views.EvaluateScreen"
             android:exported="false" />
         <activity
-            android:name=".Views.HopelessActivity"
+            android:name=".Tests.WellBeingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Tests.AnxietyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Tests.RosenbergD7Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Tests.RosenbergD1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Tests.HopelessActivity"
             android:exported="false" />
         <activity
             android:name=".Views.EvaluatesActivity"
@@ -49,7 +61,7 @@
             android:name=".Views.LastPageActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.QuestionsActivity"
+            android:name=".Tests.QuestionsActivity"
             android:exported="false" />
         <activity
             android:name=".Views.MainActivity"

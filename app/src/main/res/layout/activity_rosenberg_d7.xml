@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_first_page1"
-    tools:context=".Views.QuestionsActivity">
+    tools:context=".Tests.QuestionsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".Views.QuestionsActivity"
+        tools:context=".Tests.QuestionsActivity"
         tools:ignore="MissingConstraints">
 
         <TextView

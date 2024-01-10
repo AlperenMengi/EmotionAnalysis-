@@ -10,6 +10,7 @@
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/drawable/background_first_page1.xml" value="0.2115" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/drawable/background_first_page2.xml" value="0.2115" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/drawable/background_first_page3.xml" value="0.2105" />
+        <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/drawable/background_password.xml" value="0.2105" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/drawable/background_top.xml" value="0.2115" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/drawable/custom_edittext.xml" value="0.1965" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/drawable/gradient_list.xml" value="0.1895" />
@@ -18,15 +19,19 @@
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/drawable/login_button_backfground.xml" value="0.2105" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_answers.xml" value="0.18885869565217392" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_answers_adapter.xml" value="0.18885869565217392" />
+        <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_anxiety.xml" value="0.1675213675213675" />
+        <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_evaluate_screen.xml" value="0.22" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_evaluates.xml" value="0.22" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_hopeless.xml" value="0.25" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_last_page.xml" value="0.25" />
-        <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_login.xml" value="0.18885869565217392" />
+        <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_make_evaluate.xml" value="0.25" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_questions.xml" value="0.25" />
+        <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_rosenberg_d1.xml" value="0.21" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_rosenberg_d7.xml" value="0.1675213675213675" />
+        <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/activity_well_being.xml" value="0.25" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/evaluate_row.xml" value="0.25" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/layout/recycler_row.xml" value="0.18885869565217392" />
         <entry key="..\:/Users/alper/AndroidStudioProjects/DuyguAnaliziPrototip/app/src/main/res/menu/last_page_menu.xml" value="0.20416666666666666" />
