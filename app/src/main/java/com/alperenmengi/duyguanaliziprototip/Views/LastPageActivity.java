@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alperenmengi.duyguanaliziprototip.Camera.facialExpressionRecognition;
 import com.alperenmengi.duyguanaliziprototip.R;
 import com.alperenmengi.duyguanaliziprototip.databinding.ActivityLastPageBinding;
 import com.alperenmengi.duyguanaliziprototip.databinding.ActivityLoginBinding;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LastPageActivity extends AppCompatActivity {
+
     private ActivityLastPageBinding binding;
 
     private ArrayList<String> answersListDepression;
@@ -34,6 +37,7 @@ public class LastPageActivity extends AppCompatActivity {
     private ArrayList<String> optionsListRosenbergD7;
     private ArrayList<String> optionsListAnxiety;
     private ArrayList<String> optionsListWellBeing;
+    private int yapayZekaSonuc;
 
     float countA = 0;
     float countB = 0;
@@ -49,6 +53,8 @@ public class LastPageActivity extends AppCompatActivity {
     int i = 0;
     String whichTest;
     String whichTestMakeEvaluateActivity;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +81,17 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListDepression = getIntent().getStringArrayListExtra("options");
 
                 int pointDepression = (int) sonucHesaplaDepression(optionsListDepression);
-                binding.resultText.setText("Sonucunuz : " + pointDepression + "/60 puan");
+                yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                pointDepression -= yapayZekaSonuc;
+                if (pointDepression < 0)
+                    pointDepression = 0;
+                if (yapayZekaSonuc == 0){
+                    yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    pointDepression += yapayZekaSonuc;
+                    if (pointDepression > 63)
+                        pointDepression = 63;
+                }
+                binding.resultText.setText("Sonucunuz : " + pointDepression + "/63 puan");
                 printDepression(pointDepression, "Depresyon");
 
             }
@@ -115,12 +131,8 @@ public class LastPageActivity extends AppCompatActivity {
 
 
             }
-
-
         }
-
     }
-
     private void printWellBeing(int pointWellBeing, String test) {
         if (pointWellBeing >= 0 && pointWellBeing <=32){
             binding.healthText.setText("Düşük " + test + " Sahipsiniz.");
@@ -427,7 +439,6 @@ public class LastPageActivity extends AppCompatActivity {
         if (whichTest.equals("wellbeing"))
             intent.putStringArrayListExtra("answers", new ArrayList<>(answersListWellBeing));
         startActivity(intent);
-
 
     }
 

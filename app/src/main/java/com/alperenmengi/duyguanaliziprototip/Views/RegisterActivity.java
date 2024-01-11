@@ -68,7 +68,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)// buradan bir json verisi alacağımızı söylüyoruz.
-                //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())// gelen JSON'ı modele göre alacağımıız retrofite de bidirmek için bu kısmı yazıyoruz
                 .client(okHttpClient)
                 .build();

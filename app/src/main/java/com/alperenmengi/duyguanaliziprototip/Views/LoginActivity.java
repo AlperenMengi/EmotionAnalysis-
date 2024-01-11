@@ -82,10 +82,10 @@ public class LoginActivity extends AppCompatActivity {
         //TimeoutException'u engellemek için bunu yaptım bakalım. İşe yarayacak mı bilmiyorum.
         /*HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(Level.BODY);*/
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(5, TimeUnit.MINUTES);
-        builder.writeTimeout(5, TimeUnit.MINUTES);
-        builder.readTimeout(5, TimeUnit.MINUTES);
+       OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(2, TimeUnit.MINUTES);
+        builder.writeTimeout(2, TimeUnit.MINUTES);
+        builder.readTimeout(2, TimeUnit.MINUTES);
         /*if (BuildConfig.DEBUG) {
             builder.addInterceptor(logging);
         }
