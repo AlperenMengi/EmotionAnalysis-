@@ -72,6 +72,17 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListHopeless = getIntent().getStringArrayListExtra("options");
 
                 pointHopeless = (int) sonucHesaplaHopeless(optionsListHopeless);
+                yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                pointHopeless -= yapayZekaSonuc;
+                if (pointHopeless < 0)
+                    pointHopeless = 0;
+                if (yapayZekaSonuc == 0){
+                    yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    pointHopeless += yapayZekaSonuc;
+                    if (pointHopeless > 20)
+                        pointHopeless = 20;
+                }
+
                 binding.resultText.setText("Sonucunuz : " + pointHopeless + "/20 puan");
                 printHopeless(pointHopeless, "Umutsuzluk");
             }
@@ -100,6 +111,16 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListRosenbergD1  = getIntent().getStringArrayListExtra("options");
 
                 float pointRosenbergD1 = sonucHesaplaRosenbergD1(optionsListRosenbergD1);
+                yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                pointRosenbergD1 -= yapayZekaSonuc;
+                if (pointRosenbergD1 < 0)
+                    pointRosenbergD1 = 0;
+                if (yapayZekaSonuc == 0){
+                    yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    pointRosenbergD1 += yapayZekaSonuc;
+                    if (pointRosenbergD1 > 6)
+                        pointRosenbergD1 = 6;
+                }
                 binding.resultText.setText("Sonucunuz : " + pointRosenbergD1 + "/6 puan");
                 printRosenbergD1(pointRosenbergD1, "Benlik Saygısı'na");
             }
@@ -108,6 +129,16 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListRosenbergD7 =getIntent().getStringArrayListExtra("options");
 
                 float pointRosenbergD7 = sonucHesaplaRosenbergD7(optionsListRosenbergD7);
+                yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                pointRosenbergD7 -= yapayZekaSonuc;
+                if (pointRosenbergD7 < 0)
+                    pointRosenbergD7 = 0;
+                if (yapayZekaSonuc == 0){
+                    yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    pointRosenbergD7 += yapayZekaSonuc;
+                    if (pointRosenbergD7 > 6)
+                        pointRosenbergD7 = 6;
+                }
                 binding.resultText.setText("Sonucunuz : " + pointRosenbergD7 + "/10 puan");
                 printRosenbergD7(pointRosenbergD7, "Psikosomatik Belirti'ye");
             }
@@ -116,20 +147,37 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListAnxiety =getIntent().getStringArrayListExtra("options");
 
                 int pointAnxiety = sonucHesaplaAnxiety(optionsListAnxiety);
+                yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                pointAnxiety -= yapayZekaSonuc;
+                if (pointAnxiety < 0)
+                    pointAnxiety = 0;
+                if (yapayZekaSonuc == 0){
+                    yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    pointAnxiety += yapayZekaSonuc;
+                    if (pointAnxiety > 63)
+                        pointAnxiety = 63;
+                }
+
                 binding.resultText.setText("Sonucunuz : " + pointAnxiety + "/63 puan");
                 printAnxiety(pointAnxiety, "Anksiyete'ye");
-
             }
             if (whichTest.equals("wellbeing")){
                 answersListWellBeing = getIntent().getStringArrayListExtra("answers");
                 optionsListWellBeing =getIntent().getStringArrayListExtra("options");
 
                 int pointWellBeing= sonucHesaplaWellBeing(optionsListWellBeing);
+                yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                pointWellBeing -= yapayZekaSonuc;
+                if (pointWellBeing < 14)
+                    pointWellBeing = 14;
+                if (yapayZekaSonuc == 0){
+                    yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    pointWellBeing += yapayZekaSonuc;
+                    if (pointWellBeing > 70)
+                        pointWellBeing = 70;
+                }
                 binding.resultText.setText("Sonucunuz : " + pointWellBeing + "/70 puan");
                 printWellBeing(pointWellBeing, "İyi Oluş Seviyesi'ne");
-
-
-
             }
         }
     }

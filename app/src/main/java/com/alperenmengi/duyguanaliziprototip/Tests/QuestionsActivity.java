@@ -108,8 +108,6 @@ public class QuestionsActivity extends AppCompatActivity implements CameraBridge
 
         System.loadLibrary("opencv_java3");
 
-        //closeCamerabutton = findViewById(R.id.closeCameraButton);
-
         int MY_PERMISSIONS_REQUEST_CAMERA=0;
         // if camera permission is not given it will ask for it on device
         if (ContextCompat.checkSelfPermission(QuestionsActivity.this, Manifest.permission.CAMERA)
@@ -231,51 +229,7 @@ public class QuestionsActivity extends AppCompatActivity implements CameraBridge
             Toast.makeText(this, "Lütfen bir cevap seçiniz!", Toast.LENGTH_LONG).show();
     }
 
-    public int[] yapayZekaSonucuHesapla(){
-        int kontrol;
-        int[] kontrolDizisi = new int[2];
-        countMutlu = facialExpressionRecognition.countMutlu;
-        countKorkmus= facialExpressionRecognition.countKorkmus;
-        countNotr = facialExpressionRecognition.countNotr;
-        countSaskin = facialExpressionRecognition.countSaskin;
-        countSinirli = facialExpressionRecognition.countSinirli;
-        countUzgun = facialExpressionRecognition.countUzgun;
-        countIgrenmis = facialExpressionRecognition.countIgrenmıs;
-        countToplamDuygu = countMutlu+countKorkmus+countNotr+countSaskin+countSinirli+countUzgun+countIgrenmis;
 
-        if ((countMutlu > countKorkmus) && (countMutlu > countNotr) && (countMutlu > countSaskin) && (countMutlu > countSinirli) && (countMutlu > countUzgun) && (countMutlu > countIgrenmis)){
-            System.out.println("countMutlu : " + countMutlu);
-            System.out.println("countToplamDuygu : " + countToplamDuygu);
-            yapayZekaSonuc = (int) (( (double) countMutlu / countToplamDuygu) * 100) / 10;
-            if(yapayZekaSonuc > 10)
-                yapayZekaSonuc = 10;
-            System.out.println("if içindeki yapayZrkaSonuc : " + yapayZekaSonuc);
-            kontrol = 1;
-            kontrolDizisi[0] = yapayZekaSonuc;
-            kontrolDizisi[1] = kontrol;
-        }
-        else{
-            int[] dizi = {countKorkmus,countNotr,countSaskin,countSinirli,countUzgun,countIgrenmis};
-            int i;
-            int max;
-            max = dizi[0];
-            for (i = 0; i < dizi.length; i++){
-                if (dizi[i] > max){
-                    max = dizi[i];
-                }
-            }
-            System.out.println("countMutlu : " + countMutlu);
-            System.out.println("countToplamDuygu : " + countToplamDuygu);
-            yapayZekaSonuc = (int) (((double) max / countToplamDuygu) * 100) / 10;
-            System.out.println("fonksiyonun elsesi yapayZekaSonuc : " + yapayZekaSonuc);
-
-            kontrol = 0;
-            kontrolDizisi[0] = yapayZekaSonuc;
-            kontrolDizisi[1] = kontrol;
-
-        }
-        return kontrolDizisi;
-    }
 
 
     // bir soru geri gelme butonu
@@ -341,6 +295,54 @@ public class QuestionsActivity extends AppCompatActivity implements CameraBridge
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Son zamanalarda kilo vermedim.", "Zayıflamaya çalışmadığım halde en az 2 kilo kaybettim.", "Zayıflamaya çalışmadığım halde en az 4 kilo kaybettim.", "Zayıflamaya çalışmadığım halde en az 6 kilo kaybettim."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Sağlığım hakkında fazla endişem yok.", "Ağrı, sancı, mide bozukluğu, veya kabızlık gibi rahıtsızlıklar beni endişelendiriyor.", "Sağlığımın bozulmasından endişeleniyorum ve bu sebeple kafamı başka şeylere vermekte zorlanıyorum.", "Sağlığım hakkında o kadar endişeliyim ki başka hiçbir şey düşünemiyorum."));
         questionModelList.add(new QuestionModel("Aşağıdaki önermelerden size en uygun olanı seçin.", "Sekse karşı ilgimde herhangi bir değişiklik yok.", "Eskisine göre sekse olan ilgim biraz azaldı.", "Sekse olan ilgim büyük ölçüde azaldı.", "Sekse olan ilgimi tamamen kaybettim."));
+    }
+
+    public int[] yapayZekaSonucuHesapla(){
+        int kontrol;
+        int[] kontrolDizisi = new int[2];
+        countMutlu = facialExpressionRecognition.countMutlu;
+        countKorkmus= facialExpressionRecognition.countKorkmus;
+        countNotr = facialExpressionRecognition.countNotr;
+        countSaskin = facialExpressionRecognition.countSaskin;
+        countSinirli = facialExpressionRecognition.countSinirli;
+        countUzgun = facialExpressionRecognition.countUzgun;
+        countIgrenmis = facialExpressionRecognition.countIgrenmıs;
+        countToplamDuygu = countMutlu+countKorkmus+countNotr+countSaskin+countSinirli+countUzgun+countIgrenmis;
+
+        if ((countMutlu > countKorkmus) && (countMutlu > countNotr) && (countMutlu > countSaskin) && (countMutlu > countSinirli) && (countMutlu > countUzgun) && (countMutlu > countIgrenmis)){
+            System.out.println("countMutlu : " + countMutlu);
+            System.out.println("countToplamDuygu : " + countToplamDuygu);
+            yapayZekaSonuc = (int) (( (double) countMutlu / countToplamDuygu) * 100) / 10;
+            if(yapayZekaSonuc > 10)
+                yapayZekaSonuc = 10;
+            System.out.println("if içindeki yapayZrkaSonuc : " + yapayZekaSonuc);
+            kontrol = 1;
+            kontrolDizisi[0] = yapayZekaSonuc;
+            kontrolDizisi[1] = kontrol;
+        }
+        else{
+            int[] dizi = {countKorkmus,countNotr,countSaskin,countSinirli,countUzgun,countIgrenmis};
+            int i;
+            int max;
+            max = dizi[0];
+            for (i = 0; i < dizi.length; i++){
+                if (dizi[i] > max){
+                    max = dizi[i];
+                }
+            }
+            System.out.println("countMutlu : " + countMutlu);
+            System.out.println("countToplamDuygu : " + countToplamDuygu);
+            yapayZekaSonuc = (int) (((double) max / countToplamDuygu) * 100) / 10;
+            if(yapayZekaSonuc < 10)
+                yapayZekaSonuc = 10;
+            System.out.println("fonksiyonun elsesi yapayZekaSonuc : " + yapayZekaSonuc);
+
+            kontrol = 0;
+            kontrolDizisi[0] = yapayZekaSonuc;
+            kontrolDizisi[1] = kontrol;
+
+        }
+        return kontrolDizisi;
     }
 
     @Override

@@ -1,13 +1,21 @@
 package com.alperenmengi.duyguanaliziprototip.Tests;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.alperenmengi.duyguanaliziprototip.Camera.facialExpressionRecognition;
 import com.alperenmengi.duyguanaliziprototip.Models.QuestionModel;
 import com.alperenmengi.duyguanaliziprototip.R;
 import com.alperenmengi.duyguanaliziprototip.Views.LastPageActivity;
@@ -15,10 +23,27 @@ import com.alperenmengi.duyguanaliziprototip.Views.MainActivity;
 import com.alperenmengi.duyguanaliziprototip.databinding.ActivityHopelessBinding;
 import com.alperenmengi.duyguanaliziprototip.databinding.ActivityRosenbergD1Binding;
 
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.imgproc.Imgproc;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RosenbergD1Activity extends AppCompatActivity {
+public class RosenbergD1Activity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2{
+
+    //Implementation for Camera
+    private Mat mRgba;
+    private Mat mGray;
+    private CameraBridgeViewBase mOpenCvCameraView;
+    // call java class
+    private facialExpressionRecognition facialExpressionRecognition;
 
     private ActivityRosenbergD1Binding binding;
     private List<QuestionModel> questionModelList;
@@ -32,9 +57,41 @@ public class RosenbergD1Activity extends AppCompatActivity {
     private ArrayList<String> choosenOptionList;
     String rosenbergD1 = "rosenbergD1";
 
+    int countMutlu;
+    int countSinirli;
+    int countSaskin;
+    int countUzgun;
+    int countNotr;
+    int countIgrenmis;
+    int countKorkmus;
+    int countToplamDuygu;
+    int yapayZekaSonuc;
+
+    // For Camera
+    private BaseLoaderCallback mLoaderCallback =new BaseLoaderCallback(this) {
+        @Override
+        public void onManagerConnected(int status) {
+            switch (status){
+                case LoaderCallbackInterface
+                        .SUCCESS:{
+                    Log.i("Bilgilendirme","OpenCv Is loaded");
+                    mOpenCvCameraView.enableView();
+                }
+                default:
+                {
+                    super.onManagerConnected(status);
+                }
+                break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         binding = ActivityRosenbergD1Binding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -44,6 +101,32 @@ public class RosenbergD1Activity extends AppCompatActivity {
         questionModelList = new ArrayList<>();
         addQuestions();
         soruCevaplar();
+
+        System.loadLibrary("opencv_java3");
+
+        int MY_PERMISSIONS_REQUEST_CAMERA=0;
+        // if camera permission is not given it will ask for it on device
+        if (ContextCompat.checkSelfPermission(RosenbergD1Activity.this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(RosenbergD1Activity.this, new String[]
+                    {Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
+        }
+
+        mOpenCvCameraView=findViewById(R.id.frame_Surface);
+        mOpenCvCameraView.setAlpha(0); // kamera görüntüsünü kapatmak için
+        mOpenCvCameraView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT);
+        mOpenCvCameraView.setCvCameraViewListener(this);
+
+        try{
+            // input size of model is 48
+            int inputSize=48;
+            facialExpressionRecognition = new facialExpressionRecognition(getAssets(),RosenbergD1Activity.this,
+                    "model300.tflite",inputSize);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     //Soru ve cevapları gösterme
@@ -100,10 +183,28 @@ public class RosenbergD1Activity extends AppCompatActivity {
                 binding.nextButton.setText("SONUCUNU GÖR");
 
             if(currentQuestion == (questionModelList.size())){ // son soruya gelinmişse teşekkür ekranına git.
+                int[] dizi;
                 Intent intent = new Intent(this, LastPageActivity.class);
                 intent.putExtra("test", rosenbergD1);
                 intent.putStringArrayListExtra("answers", choosenAnswersList);
                 intent.putStringArrayListExtra("options", choosenOptionList);
+
+                dizi = yapayZekaSonucuHesapla();
+                if (dizi[1] == 1)
+                    intent.putExtra("azalt", dizi[0]);
+                else if (dizi[1] == 0)
+                    intent.putExtra("arttır", dizi[0]);
+
+                System.out.println("YAPAY ZEKADAN GELEN DEĞER : " + dizi[0]);
+
+                Log.d("Bilgilendirme", "Mutlu Sayısı : " + facialExpressionRecognition.countMutlu);
+                Log.d("Bilgilendirme", "İgrenmis Sayısı : " + facialExpressionRecognition.countIgrenmıs);
+                Log.d("Bilgilendirme", "Uzgun Sayısı : " + facialExpressionRecognition.countUzgun);
+                Log.d("Bilgilendirme", "Notr Sayısı : " + facialExpressionRecognition.countNotr);
+                Log.d("Bilgilendirme", "Sinirli Sayısı : " + facialExpressionRecognition.countSinirli);
+                Log.d("Bilgilendirme", "Saskin Sayısı : " + facialExpressionRecognition.countSaskin);
+                Log.d("Bilgilendirme", "Korkmus Sayısı : " + facialExpressionRecognition.countKorkmus);
+
                 startActivity(intent);
                 RosenbergD1Activity.this.finish();
             }
@@ -174,6 +275,109 @@ public class RosenbergD1Activity extends AppCompatActivity {
         questionModelList.add(new QuestionModel("Bazen kesinlikle kendimin bir işe yaramadığını düşünüyorum.", "ÇOK DOĞRU", "DOĞRU ", "YANLIŞ ", "ÇOK YANLIŞ"));
         questionModelList.add(new QuestionModel("Bazen kendimin hiç de yeterli bir insan olmadığımı düşünüyorum", "ÇOK DOĞRU", "DOĞRU ", "YANLIŞ ", "ÇOK YANLIŞ"));
 
+    }
+
+    public int[] yapayZekaSonucuHesapla(){
+        int kontrol;
+        int[] kontrolDizisi = new int[2];
+        countMutlu = facialExpressionRecognition.countMutlu;
+        countKorkmus= facialExpressionRecognition.countKorkmus;
+        countNotr = facialExpressionRecognition.countNotr;
+        countSaskin = facialExpressionRecognition.countSaskin;
+        countSinirli = facialExpressionRecognition.countSinirli;
+        countUzgun = facialExpressionRecognition.countUzgun;
+        countIgrenmis = facialExpressionRecognition.countIgrenmıs;
+        countToplamDuygu = countMutlu+countKorkmus+countNotr+countSaskin+countSinirli+countUzgun+countIgrenmis;
+
+        if ((countMutlu > countKorkmus) && (countMutlu > countNotr) && (countMutlu > countSaskin) && (countMutlu > countSinirli) && (countMutlu > countUzgun) && (countMutlu > countIgrenmis)){
+            System.out.println("countMutlu : " + countMutlu);
+            System.out.println("countToplamDuygu : " + countToplamDuygu);
+            yapayZekaSonuc = (int) (( (double) countMutlu / countToplamDuygu) * 100) / 20;
+            if(yapayZekaSonuc > 5)
+                yapayZekaSonuc = 5;
+            System.out.println("if içindeki yapayZrkaSonuc : " + yapayZekaSonuc);
+            kontrol = 1;
+            kontrolDizisi[0] = yapayZekaSonuc;
+            kontrolDizisi[1] = kontrol;
+        }
+        else{
+            int[] dizi = {countKorkmus,countNotr,countSaskin,countSinirli,countUzgun,countIgrenmis};
+            int i;
+            int max;
+            max = dizi[0];
+            for (i = 0; i < dizi.length; i++){
+                if (dizi[i] > max){
+                    max = dizi[i];
+                }
+            }
+            System.out.println("countMutlu : " + countMutlu);
+            System.out.println("countToplamDuygu : " + countToplamDuygu);
+            yapayZekaSonuc = (int) (((double) max / countToplamDuygu) * 100) / 20;
+            if(yapayZekaSonuc < 5)
+                yapayZekaSonuc = 5;
+            System.out.println("fonksiyonun elsesi yapayZekaSonuc : " + yapayZekaSonuc);
+            kontrol = 0;
+            kontrolDizisi[0] = yapayZekaSonuc;
+            kontrolDizisi[1] = kontrol;
+        }
+        return kontrolDizisi;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (OpenCVLoader.initDebug()){
+            //if load success
+            Log.d("Bilgilendirme","Opencv initialization is done");
+            mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+        }
+        else{
+            //if not loaded
+            Log.d("Bilgilendirme","Opencv is not loaded. try again");
+            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_4_0,this,mLoaderCallback);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mOpenCvCameraView !=null){
+            mOpenCvCameraView.disableView();
+        }
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        if(mOpenCvCameraView !=null){
+            mOpenCvCameraView.disableView();
+        }
+    }
+
+    public void onCameraViewStarted(int width ,int height){
+        mRgba = new Mat(height,width, CvType.CV_8UC4);
+        mGray = new Mat(height,width,CvType.CV_8UC1);
+    }
+
+    public void onCameraViewStopped(){
+        mRgba.release();
+    }
+
+    public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame){
+        mRgba = inputFrame.rgba();
+        mGray = inputFrame.gray();
+
+        Mat rotImage = Imgproc.getRotationMatrix2D(new Point(mRgba.cols() / 2,
+                mRgba.rows() / 2), 180, 1.0);
+        Imgproc.warpAffine(mRgba, mRgba, rotImage, mRgba.size());
+        Imgproc.warpAffine(mGray, mGray, rotImage, mRgba.size());
+
+        // Call the facial expression recognition
+        mRgba = facialExpressionRecognition.recognizeImage(mRgba);
+        Log.d("Bilgilendirme", "mRgba x ve y : " + mRgba.cols() + "x" + mRgba.rows());
+        // Rotate the frame back to the original orientation
+        //Core.rotate(mRgba, mRgba, Core.ROTATE_90_COUNTERCLOCKWISE);
+
+        return mRgba;
     }
 
 }
