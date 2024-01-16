@@ -3,6 +3,7 @@ package com.alperenmengi.duyguanaliziprototip.Views;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,8 +52,10 @@ public class LastPageActivity extends AppCompatActivity {
     float pointE = 4;
     int pointHopeless = 0;
     int i = 0;
+    public static float testSonucu;
+    public static float genelSonuc;
+    public static int yzSonucu;
     String whichTest;
-    String whichTestMakeEvaluateActivity;
 
 
 
@@ -72,17 +75,20 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListHopeless = getIntent().getStringArrayListExtra("options");
 
                 pointHopeless = (int) sonucHesaplaHopeless(optionsListHopeless);
+                testSonucu = pointHopeless;
                 yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                yzSonucu = yapayZekaSonuc;
                 pointHopeless -= yapayZekaSonuc;
                 if (pointHopeless < 0)
                     pointHopeless = 0;
                 if (yapayZekaSonuc == 0){
                     yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    yzSonucu = yapayZekaSonuc;
                     pointHopeless += yapayZekaSonuc;
                     if (pointHopeless > 20)
                         pointHopeless = 20;
                 }
-
+                genelSonuc = pointHopeless;
                 binding.resultText.setText("Sonucunuz : " + pointHopeless + "/20 puan");
                 printHopeless(pointHopeless, "Umutsuzluk");
             }
@@ -92,16 +98,20 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListDepression = getIntent().getStringArrayListExtra("options");
 
                 int pointDepression = (int) sonucHesaplaDepression(optionsListDepression);
+                testSonucu = pointDepression;
                 yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                yzSonucu = yapayZekaSonuc;
                 pointDepression -= yapayZekaSonuc;
                 if (pointDepression < 0)
                     pointDepression = 0;
                 if (yapayZekaSonuc == 0){
                     yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    yzSonucu = yapayZekaSonuc;
                     pointDepression += yapayZekaSonuc;
                     if (pointDepression > 63)
                         pointDepression = 63;
                 }
+                genelSonuc = pointDepression;
                 binding.resultText.setText("Sonucunuz : " + pointDepression + "/63 puan");
                 printDepression(pointDepression, "Depresyon");
 
@@ -111,17 +121,21 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListRosenbergD1  = getIntent().getStringArrayListExtra("options");
 
                 float pointRosenbergD1 = sonucHesaplaRosenbergD1(optionsListRosenbergD1);
+                testSonucu = pointRosenbergD1;
                 yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                yzSonucu = yapayZekaSonuc;
                 pointRosenbergD1 -= yapayZekaSonuc;
                 if (pointRosenbergD1 < 0)
                     pointRosenbergD1 = 0;
                 if (yapayZekaSonuc == 0){
                     yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    yzSonucu = yapayZekaSonuc;
                     pointRosenbergD1 += yapayZekaSonuc;
                     if (pointRosenbergD1 > 6)
                         pointRosenbergD1 = 6;
                 }
-                binding.resultText.setText("Sonucunuz : " + pointRosenbergD1 + "/6 puan");
+                genelSonuc = pointRosenbergD1;
+                binding.resultText.setText("Sonucunuz : " + String.format("%.2f", pointRosenbergD1) + "/6 puan");
                 printRosenbergD1(pointRosenbergD1, "Benlik Saygısı'na");
             }
             if (whichTest.equals("rosenbergD7")){
@@ -129,17 +143,21 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListRosenbergD7 =getIntent().getStringArrayListExtra("options");
 
                 float pointRosenbergD7 = sonucHesaplaRosenbergD7(optionsListRosenbergD7);
+                testSonucu = pointRosenbergD7;
                 yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                yzSonucu = yapayZekaSonuc;
                 pointRosenbergD7 -= yapayZekaSonuc;
                 if (pointRosenbergD7 < 0)
                     pointRosenbergD7 = 0;
                 if (yapayZekaSonuc == 0){
                     yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    yzSonucu = yapayZekaSonuc;
                     pointRosenbergD7 += yapayZekaSonuc;
-                    if (pointRosenbergD7 > 6)
-                        pointRosenbergD7 = 6;
+                    if (pointRosenbergD7 >10)
+                        pointRosenbergD7 = 10;
                 }
-                binding.resultText.setText("Sonucunuz : " + pointRosenbergD7 + "/10 puan");
+                genelSonuc = pointRosenbergD7;
+                binding.resultText.setText("Sonucunuz : " + String.format("%.2f", pointRosenbergD7)  + "/10 puan");
                 printRosenbergD7(pointRosenbergD7, "Psikosomatik Belirti'ye");
             }
             if (whichTest.equals("anxiety")){
@@ -147,17 +165,20 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListAnxiety =getIntent().getStringArrayListExtra("options");
 
                 int pointAnxiety = sonucHesaplaAnxiety(optionsListAnxiety);
+                testSonucu = pointAnxiety;
                 yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                yzSonucu = yapayZekaSonuc;
                 pointAnxiety -= yapayZekaSonuc;
                 if (pointAnxiety < 0)
                     pointAnxiety = 0;
                 if (yapayZekaSonuc == 0){
                     yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    yzSonucu = yapayZekaSonuc;
                     pointAnxiety += yapayZekaSonuc;
                     if (pointAnxiety > 63)
                         pointAnxiety = 63;
                 }
-
+                genelSonuc = pointAnxiety;
                 binding.resultText.setText("Sonucunuz : " + pointAnxiety + "/63 puan");
                 printAnxiety(pointAnxiety, "Anksiyete'ye");
             }
@@ -166,48 +187,23 @@ public class LastPageActivity extends AppCompatActivity {
                 optionsListWellBeing =getIntent().getStringArrayListExtra("options");
 
                 int pointWellBeing= sonucHesaplaWellBeing(optionsListWellBeing);
-                yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                testSonucu = pointWellBeing;
+                yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                yzSonucu = yapayZekaSonuc;
                 pointWellBeing -= yapayZekaSonuc;
                 if (pointWellBeing < 14)
                     pointWellBeing = 14;
                 if (yapayZekaSonuc == 0){
-                    yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
+                    yapayZekaSonuc = getIntent().getIntExtra("azalt", 0);
+                    yzSonucu = yapayZekaSonuc;
                     pointWellBeing += yapayZekaSonuc;
                     if (pointWellBeing > 70)
                         pointWellBeing = 70;
                 }
+                genelSonuc = pointWellBeing;
                 binding.resultText.setText("Sonucunuz : " + pointWellBeing + "/70 puan");
                 printWellBeing(pointWellBeing, "İyi Oluş Seviyesi'ne");
             }
-        }
-    }
-    private void printWellBeing(int pointWellBeing, String test) {
-        if (pointWellBeing >= 0 && pointWellBeing <=32){
-            binding.healthText.setText("Düşük " + test + " Sahipsiniz.");
-        }
-        if (pointWellBeing >= 33 && pointWellBeing <=40){
-            binding.healthText.setText("Orta " + test + " Sahipsiniz.");
-        }
-        if (pointWellBeing >= 41 && pointWellBeing <=48){
-            binding.healthText.setText("İyi " + test + " Sahipsiniz.");
-        }
-        if (pointWellBeing >= 49 && pointWellBeing <=56){
-            binding.healthText.setText("Yüksek " + test + " Sahipsiniz.");
-        }
-        if (pointWellBeing >= 57 && pointWellBeing <=70){
-            binding.healthText.setText("Çok Yüksek " + test + " Sahipsiniz.");
-        }
-    }
-
-    private void printAnxiety(int pointAnxiety, String test) {
-        if (pointAnxiety >= 0 && pointAnxiety <= 15){
-            binding.healthText.setText("Hafif Derecede " + test + " Sahipsiniz.");
-        }
-        if (pointAnxiety >= 16 && pointAnxiety <= 25){
-            binding.healthText.setText("Orta Derecede " + test + " Sahipsiniz.");
-        }
-        if (pointAnxiety >= 26 && pointAnxiety <= 63){
-            binding.healthText.setText("Şiddetli Derecede " + test + " Sahipsiniz.");
         }
     }
 
@@ -395,27 +391,99 @@ public class LastPageActivity extends AppCompatActivity {
         return ((pointA*countA) +(pointB*countB)+(pointC*countC)+(pointD*countD));
     }
 
+    private void printWellBeing(int pointWellBeing, String test) {
+        if (pointWellBeing >= 0 && pointWellBeing <=32){
+            binding.healthText.setText("Düşük " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.dusukiyiolus);
+            binding.specialText.setText("Gökyüzündeki bulutlar, güneşi görmek için bir fırsattır.");
+
+        }
+        if (pointWellBeing >= 33 && pointWellBeing <=40){
+            binding.healthText.setText("Orta " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.ortaiyiolus);
+            binding.specialText.setText("Hayatta inişler ve çıkışlar normaldir, önemli olan yola devam etmektir.");
+
+        }
+        if (pointWellBeing >= 41 && pointWellBeing <=48){
+            binding.healthText.setText("İyi " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.iyiiyiolus);
+            binding.specialText.setText("Güzel anları yaşayın, çünkü yaşamın değeri bu anlardan gelir.");
+
+        }
+        if (pointWellBeing >= 49 && pointWellBeing <=56){
+            binding.healthText.setText("Yüksek " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.azpsikoloji);
+            binding.specialText.setText("Kendinizi sevin, çünkü kendi içindeki güzellik, dışarıya ışık saçar.");
+
+        }
+        if (pointWellBeing >= 57 && pointWellBeing <=70){
+            binding.healthText.setText("Çok Yüksek " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.yuksekiyiolus);
+            binding.specialText.setText("Hayatta gerçek mutluluk, içsel bir huzur ve uyumla gelir.");
+
+        }
+    }
+
+    private void printAnxiety(int pointAnxiety, String test) {
+        if (pointAnxiety >= 0 && pointAnxiety <= 15){
+            binding.healthText.setText("Hafif Derecede " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.hafifanksiyete);
+            binding.specialText.setText("Gökyüzündeki bulutlar, güneşin ardında hep parlıyor.");
+
+        }
+        if (pointAnxiety >= 16 && pointAnxiety <= 25){
+            binding.healthText.setText("Orta Derecede " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.ortaanksiyete);
+            binding.specialText.setText("Fırtınada kaybolmadan önce, rüzgarın gücünü hatırla.");
+
+        }
+        if (pointAnxiety >= 26 && pointAnxiety <= 63){
+            binding.healthText.setText("Şiddetli Derecede " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.siddetlianksiyete);
+            binding.specialText.setText("Her fırtına, bir gün yerini sakin bir denize bırakır.");
+
+        }
+    }
+
     private void printRosenbergD7(float pointRosenbergD7, String test) {
         if (pointRosenbergD7 >= 0 && pointRosenbergD7 <= 2){
             binding.healthText.setText("Az Derecede " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.azpsikoloji);
+            binding.specialText.setText("Azaltılmış stres, sağlıklı bir hayatın anahtarıdır.");
+
         }
         if (pointRosenbergD7 > 2 && pointRosenbergD7 <= 4){
             binding.healthText.setText("Orta Derecede " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.ortapsikoloji);
+            binding.specialText.setText("Bedeniniz size mesaj gönderiyorsa, ruhunuzu dinlemeyi unutmayın.");
+
         }
-        if (pointRosenbergD7 > 5){
+        if (pointRosenbergD7 >= 5){
             binding.healthText.setText("Yüksek Derecede " + test + " Sahipsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.yuksekpsikoloji);
+            binding.specialText.setText("Zihin ve beden arasındaki dengeyi bulmak, sağlıklı bir yaşamın temelidir.");
+
         }
     }
 
     private void printRosenbergD1(float point, String test) {
         if (point > 0 && point <= 2) {
             binding.healthText.setText("Yüksek Derecede " + test + " Sahibisiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.yuksekbenliksaygisi);
+            binding.specialText.setText("Kendi güzelliklerinizi keşfedin, çünkü kendi içinizde bir hazine saklıdır.");
+
         }
         if (point > 2 && point <= 4) {
             binding.healthText.setText("Orta Derecede " + test + " Sahibisiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.ortabenliksaygisi);
+            binding.specialText.setText("Kendi değerinizi unutmuşsanız, hatırlamak asıl adımdır.");
+
         }
         if (point > 5 && point <= 6) {
             binding.healthText.setText("Düşük Derecede " + test + " Sahibisiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.dusukbenliksaygisi);
+            binding.specialText.setText("İçsel ışığınızı bulun, çünkü karanlık sadece geçici bir durumdur.");
+
         }
 
     }
@@ -423,23 +491,23 @@ public class LastPageActivity extends AppCompatActivity {
     public void printHopeless(float point, String test){
         if (point >= 0 && point <= 3){
             binding.healthText.setText("Minimal Derecede "+ test + " Sahibisiniz.");
-            binding.suggestionText.setText("Şu an içinde bulunduğunuz durum, küçük adımlarla aşılabilecek bir zorluktur. Çözüme odaklanın, çünkü her sorunun bir çözümü vardır.");
+            binding.emotionPhotoView.setImageResource(R.drawable.minimalumutsuzluk);
             binding.specialText.setText("En küçük ışık, en karanlık odada bile fark edilir.");
         }
         else if (point >= 4 && point <= 8){
             binding.healthText.setText("Hafif Derecede "+ test + " Sahibisiniz.");
-            binding.suggestionText.setText("Belki değişim başlangıcıdır ve şu anki durumunuz, önemli adımlar atarak üzerinden gelebileceğiniz bir evrededir. Küçük değişiklikler büyük farklar yaratır.");
-            binding.specialText.setText("Bir fidanın büyümesi zaman alır, umut da öyle. Küçük adımlar, büyük değişimleri getirir.");
+            binding.emotionPhotoView.setImageResource(R.drawable.hafifumutsuzluk);
+            binding.specialText.setText("Bir fidanın büyümesi zaman alır, umut dua öyle. Küçük adımlar, büyük değişimleri getirir.");
         }
         else if (point >= 9 && point <= 14){
             binding.healthText.setText("Orta Derecede "+ test + " Sahibisiniz.");
-            binding.suggestionText.setText("Zorluklar artıyor gibi hissedebilirsiniz, ancak ortada büyük bir potansiyel var. Adım adım ilerleyin, çünkü orta derecedeki sorunlar, kararlılıkla üstesinden gelinebilir.");
+            binding.emotionPhotoView.setImageResource(R.drawable.ortaumutsuzluk);
             binding.specialText.setText("Bir gemi, sakin denizlerde yapılmaz. Güçlü ol, fırtınaların üstesinden geleceksin.");
 
         }
         else if (point >= 15 && point <= 20){
             binding.healthText.setText("Şiddetli Derecede "+ test + " Sahibisiniz.");
-            binding.suggestionText.setText("Bu zorlu süreçte olmak zor olabilir, ancak hatırlayın ki en karanlık anlar, en büyük dönüşümlerin habercisidir. Güçlü durun, çünkü şiddetli umutsuzluk, içsel gücünüzü keşfetmenin bir yoludur.");
+            binding.emotionPhotoView.setImageResource(R.drawable.siddetliumutsuzluk);
             binding.specialText.setText("Bir karanlık tünelin sonunda her zaman bir ışık vardır. Şimdi, kendi ışığını yaratma zamanı.");
         }
     }
@@ -447,23 +515,23 @@ public class LastPageActivity extends AppCompatActivity {
     public void printDepression(float point, String test){
         if (point >= 0 && point <= 9){
             binding.healthText.setText("Minimal Derecede "+ test + " Sahibisiniz.");
-            binding.suggestionText.setText("Şu an hissettiğiniz duygular, kolayca yönetilebilecek bir düzeyde. İhtiyaç duyduğunuz destekle, bu geçici zorluğun üstesinden gelebilirsiniz.");
+            binding.emotionPhotoView.setImageResource(R.drawable.minimaldepresyon);
             binding.specialText.setText("Bazen en küçük umut ışığı, içindeki karanlıkla savaşmak için yeterli olabilir.");
         }
         else if (point >= 10 && point <= 16){
             binding.healthText.setText("Hafif Derecede "+ test + " Sahibisiniz.");
-            binding.suggestionText.setText("Duygusal iniş çıkışlar, hayatın doğal bir parçasıdır. Şu anda hissettiğiniz, zamanla daha iyiye gitme potansiyeline sahiptir. Kendinize zaman tanıyın ve destek alın.");
+            binding.emotionPhotoView.setImageResource(R.drawable.hafifdepresyon);
             binding.specialText.setText("Depresyon, bir fidanın büyümesi gibi zaman alır. Küçük adımlar, büyük bir içsel dönüşüm getirebilir.");
         }
         else if (point >= 17 && point <= 29){
             binding.healthText.setText("Orta Derecede "+ test + " Sahibisiniz.");
-            binding.suggestionText.setText("Depresyonun orta derecesinde olmak, zorlu bir mücadele olabilir. Ancak, bu duygularla başa çıkmanın yollarını araştırmak ve profesyonel yardım almak, iyileşme sürecini hızlandırabilir.");
+            binding.emotionPhotoView.setImageResource(R.drawable.ortadepreson);
             binding.specialText.setText("Fırtınalar, bir geminin gerçek gücünü ortaya çıkarır. Bu zorlu zaman, içsel gücünü keşfetme fırsatıdır.");
         }
         else if (point >= 30 && point <= 63){
             binding.healthText.setText("Şiddetli Derecede "+ test + " Sahibisiniz.");
-            binding.suggestionText.setText("Bu zorlu durumda olmak gerçekten zorlayıcıdır, ancak profesyonel yardım ve sevdiklerinizin desteği ile iyileşme şansınız vardır. Güçlü olun, çünkü şiddetli depresyon, içsel dayanıklılığınızı keşfetmenin bir yoludur.");
-            binding.specialText.setText("Karanlık tünelin sonunda bir ışık her zaman vardır, ve bu ışığı görmek için kendi içsel ışığını yaratma zamanı geldi.");
+            binding.emotionPhotoView.setImageResource(R.drawable.siddetlidepresyon);
+            binding.specialText.setText("Karanlık tünelin sonusnda bir ışık her zaman vardır, ve bu ışığı görmek için kendi içsel ışığını yaratma zamanı geldi.");
         }
     }
 
@@ -501,7 +569,12 @@ public class LastPageActivity extends AppCompatActivity {
         intent.putExtra("whichTest", whichTest); // MakeEvaluateActivity'den geri döndüğümüzde hata çıkmasın diye.
         startActivity(intent);
     }
+    public void goToDetailResult(View view) {
+        Intent intent = new Intent(LastPageActivity.this, DetailResultActivity.class);
+        startActivity(intent);
+    }
 
+/*
     @Override    //optionsMenu oluşturulduğunda ne olucak, burada menu layout'unu koda bağlayacağız
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -531,5 +604,7 @@ public class LastPageActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
+
+
 }

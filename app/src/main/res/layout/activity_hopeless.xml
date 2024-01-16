@@ -42,17 +42,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/backImage"
-            android:layout_width="56dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:onClick="back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24_blackcolor" />
-
         <TextView
             android:id="@+id/countQues"
             android:layout_width="wrap_content"

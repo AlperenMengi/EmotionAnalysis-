@@ -10,4 +10,10 @@ public class EvaluateUserModel {
     @SerializedName("name")
     public String name;
 
+    public EvaluateUserModel(){
+        //boş constructor
+    }
+    public EvaluateUserModel(String id){
+        this.id = id;
+    }
 }

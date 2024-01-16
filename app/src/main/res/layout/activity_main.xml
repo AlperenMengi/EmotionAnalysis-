@@ -64,7 +64,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/background_btn"
             android:onClick="rosenbergD7Test"
-            android:text="Kendilik Kavramının Sürekliliği Testi"
+            android:text="Psikosomatik Belirtiler Testi"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="17sp" />

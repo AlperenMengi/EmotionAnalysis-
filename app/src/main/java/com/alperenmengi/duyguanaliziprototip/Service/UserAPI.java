@@ -17,10 +17,6 @@ public interface UserAPI {
     @GET("user/")
     Call<List<UserModel>> getData();
 
-    //@FormUrlEncoded
-    //@POST("auth/login")
-    //Call<List<UserModel>> sendData(@Field("name") String name, @Field("password") String password);
-
     @POST("auth/login")
     Call<UserModel> sendData(@Body UserModel userModel);
 

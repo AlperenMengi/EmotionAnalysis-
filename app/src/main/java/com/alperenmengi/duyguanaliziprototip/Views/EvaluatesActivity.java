@@ -62,7 +62,6 @@ public class EvaluatesActivity extends AppCompatActivity {
         loadData();
     }
 
-
     public void loadData(){
         FeedbackAPI feedbackAPI1 = retrofit.create(FeedbackAPI.class);
         Call<List<EvaluateModel>> call = feedbackAPI1.getData();
@@ -90,7 +89,6 @@ public class EvaluatesActivity extends AppCompatActivity {
                     evaluatesAdapter = new EvaluatesAdapter(nameArrayList, ratingArrayList, commentArrayList, feedbackArrayList);
                     binding.recyclerView2.setAdapter(evaluatesAdapter);
 
-
                 }
             }
             @Override
@@ -101,6 +99,5 @@ public class EvaluatesActivity extends AppCompatActivity {
         });
 
     }
-
 
 }

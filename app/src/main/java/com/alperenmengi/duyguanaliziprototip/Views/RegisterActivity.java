@@ -36,40 +36,23 @@ public class RegisterActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        if ((binding.sifre2Text.getText().equals(""))){
-            if (!(binding.sifreText.getText().equals(binding.sifre2Text.getText()))){
+        binding.kayitOlButton.setOnClickListener(view1 -> {
+            if ((!binding.sifre2Text.getText().toString().isEmpty()) && !(binding.sifreText.getText().toString().equals(binding.sifre2Text.getText().toString()))){
+                System.out.println("ife girmedi");
                 Toast.makeText(this, "Şifreler Uyuşmadı!", Toast.LENGTH_SHORT).show();
-                binding.kayitOlButton.setEnabled(false);
                 binding.kayitOlButton.setBackgroundResource(R.drawable.background_password);
             }
-        }
-
-
-        binding.kayitOlButton.setOnClickListener(view1 -> {
-            requestData();
+            else{
+                binding.kayitOlButton.setBackgroundResource(R.drawable.background_btn_sent);
+                requestData();
+            }
         });
-
     }
 
-
     public void requestData(){
-        //TimeoutException'u engellemek için bunu yaptım bakalım. İşe yarayacak mı bilmiyorum.
-        /*HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(Level.BODY);*/
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(5, TimeUnit.MINUTES);
-        builder.writeTimeout(5, TimeUnit.MINUTES);
-        builder.readTimeout(5, TimeUnit.MINUTES);
-        /*if (BuildConfig.DEBUG) {
-            builder.addInterceptor(logging);
-        }
-        builder.cache(null);*/
-        OkHttpClient okHttpClient = builder.build();
-
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)// buradan bir json verisi alacağımızı söylüyoruz.
                 .addConverterFactory(GsonConverterFactory.create())// gelen JSON'ı modele göre alacağımıız retrofite de bidirmek için bu kısmı yazıyoruz
-                .client(okHttpClient)
                 .build();
 
         UserModel userModel = new UserModel(binding.isimText.getText().toString().trim(), binding.epostaText.getText().toString().trim(), binding.sifreText.getText().toString().trim());

@@ -10,11 +10,9 @@
 
     <TextView
         android:id="@+id/resultText"
-        android:layout_width="408dp"
+        android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="89dp"
         android:text="Sonucunuz:"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -38,27 +36,12 @@
         app:layout_constraintTop_toBottomOf="@+id/resultText" />
 
     <TextView
-        android:id="@+id/suggestionText"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="10dp"
-        android:text="xxxxxxxxxx"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/healthText" />
-
-    <TextView
         android:id="@+id/specialText"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="40dp"
         android:text="xxxxxxxxxx"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -153,6 +136,29 @@
             android:textSize="12sp" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/emotionPhotoView"
+        android:layout_width="232dp"
+        android:layout_height="236dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/specialText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/healthText"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/detailResultView"
+        android:layout_width="34dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="goToDetailResult"
+        app:layout_constraintBottom_toTopOf="@+id/healthText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/buyutec" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,11 +39,9 @@ import java.util.List;
 
 public class AnxietyActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2{
 
-    //Implementation for Camera
     private Mat mRgba;
     private Mat mGray;
     private CameraBridgeViewBase mOpenCvCameraView;
-    // call java class
     private facialExpressionRecognition facialExpressionRecognition;
 
     private ActivityAnxietyBinding binding;
@@ -217,38 +215,10 @@ public class AnxietyActivity extends AppCompatActivity implements CameraBridgeVi
                 soruCevaplar(); // diğer soru ve cevapları yüklemek için
                 isClickButton = false; // seçilen cevap olmadığını belirtmek için
                 valueChoose = "";
-                /*binding.choose1.setBackgroundResource(R.drawable.background_btn_choose);
-                binding.choose2.setBackgroundResource(R.drawable.background_btn_choose);
-                binding.choose3.setBackgroundResource(R.drawable.background_btn_choose);
-                binding.choose4.setBackgroundResource(R.drawable.background_btn_choose);*/
             }
         }
         else
             Toast.makeText(this, "Lütfen bir cevap seçiniz!", Toast.LENGTH_LONG).show();
-    }
-
-    // bir soru geri gelme butonu
-    public void back(View View) {
-        if (currentQuestion == 0) {
-            Intent intent = new Intent(AnxietyActivity.this, MainActivity.class);
-            startActivity(intent);
-            AnxietyActivity.this.finish();
-        } else {
-            currentQuestion -= 1;
-            // Print the selected answer for the current question
-            if (!choosenAnswersList.isEmpty()) {
-                String selectedAnswer = choosenAnswersList.get(currentQuestion);
-                System.out.println("Selected answer for question " + (currentQuestion + 1) + ": " + selectedAnswer);
-            }
-            soruCevaplar(); // diğer soru ve cevapları yüklemek için
-            isClickButton = false; // seçilen cevap olmadığını belirtmek için
-
-/*
-            binding.choose1.setBackgroundResource(R.drawable.background_btn_choose);
-            binding.choose2.setBackgroundResource(R.drawable.background_btn_choose);
-            binding.choose3.setBackgroundResource(R.drawable.background_btn_choose);
-            binding.choose4.setBackgroundResource(R.drawable.background_btn_choose);*/
-        }
     }
 
     // seçeneklerden birine tıklandığında
@@ -386,11 +356,9 @@ public class AnxietyActivity extends AppCompatActivity implements CameraBridgeVi
         Imgproc.warpAffine(mRgba, mRgba, rotImage, mRgba.size());
         Imgproc.warpAffine(mGray, mGray, rotImage, mRgba.size());
 
-        // Call the facial expression recognition
+        //kameradan alınan görüntüyü analiz edecek olan sınıfa gönderiyoruz. Burada kişinin duygusu tespit ediliyor.
         mRgba = facialExpressionRecognition.recognizeImage(mRgba);
         Log.d("Bilgilendirme", "mRgba x ve y : " + mRgba.cols() + "x" + mRgba.rows());
-        // Rotate the frame back to the original orientation
-        //Core.rotate(mRgba, mRgba, Core.ROTATE_90_COUNTERCLOCKWISE);
 
         return mRgba;
     }

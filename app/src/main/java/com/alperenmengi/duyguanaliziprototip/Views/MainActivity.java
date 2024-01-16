@@ -1,8 +1,11 @@
 package com.alperenmengi.duyguanaliziprototip.Views;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -16,14 +19,19 @@ import com.alperenmengi.duyguanaliziprototip.Tests.QuestionsActivity;
 import com.alperenmengi.duyguanaliziprototip.Tests.RosenbergD1Activity;
 import com.alperenmengi.duyguanaliziprototip.Tests.RosenbergD7Activity;
 import com.alperenmengi.duyguanaliziprototip.Tests.WellBeingActivity;
+import com.alperenmengi.duyguanaliziprototip.databinding.ActivityMainBinding;
+import com.alperenmengi.duyguanaliziprototip.databinding.ActivityQuestionsBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textEvaluate;
+    ActivityMainBinding binding;
+    //TextView textEvaluate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         ConstraintLayout constraintLayout = findViewById(R.id.mainLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
@@ -31,18 +39,12 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(3000);
         animationDrawable.start();
 
-        textEvaluate = findViewById(R.id.textEvaluate);
+        //textEvaluate = findViewById(R.id.textEvaluate);
 
-        // bu kısmı çalıştırırsam, lastPageActivity ya da AnswersActivity'den MainActivitye dönmeye çalıştığımda
-        //hata alıyorum. her seferinde emaili çekmemi istiyor
-       /*Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
-        Toast.makeText(this, email, Toast.LENGTH_SHORT).show();*/
-
-        textEvaluate.setOnClickListener(view -> {
+        /*textEvaluate.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, EvaluateScreen.class);
             startActivity(intent);
-        });
+        });*/
 
     }
 
@@ -55,33 +57,51 @@ public class MainActivity extends AppCompatActivity {
         this.finishAffinity(); // uygulamayı kapa
     }
 
+
+
     public void hopelessTest(View view) {
-        Intent intent = new Intent(MainActivity.this, HopelessActivity.class);
-        startActivity(intent);
+        alertDialog(HopelessActivity.class);
     }
 
     public void depressionTest(View view) {
-        Intent intent = new Intent(MainActivity.this, QuestionsActivity.class);
-        startActivity(intent);
+        alertDialog(QuestionsActivity.class);
     }
 
     public void rosenbergD1Test(View view) {
-        Intent intent = new Intent(MainActivity.this, RosenbergD1Activity.class);
-        startActivity(intent);
+        alertDialog(RosenbergD1Activity.class);
     }
 
     public void rosenbergD7Test(View view) {
-        Intent intent = new Intent(MainActivity.this, RosenbergD7Activity.class);
-        startActivity(intent);
+        alertDialog(RosenbergD7Activity.class);
     }
 
     public void anxietyTest(View view) {
-        Intent intent = new Intent(MainActivity.this, AnxietyActivity.class);
-        startActivity(intent);
+        alertDialog(AnxietyActivity.class);
     }
 
     public void wellbeingTest(View view) {
-        Intent intent = new Intent(MainActivity.this, WellBeingActivity.class);
+        alertDialog(WellBeingActivity.class);
+    }
+
+    public void evaluateScreen(View view){
+        Intent intent = new Intent(MainActivity.this, EvaluateScreen.class);
         startActivity(intent);
+    }
+    public void alertDialog(Class activity){
+        // Create the object of AlertDialog Builder class
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("Teste başladığınızda soruları sadece 1 kez cevaplama hakkınız bulunmaktadır. " +
+                "Lütfen soruları dikkatlice cevaplayınız.\n\nDevam etmek için İleri'ye tıklayınız.");
+        builder.setTitle("Hatırlatma!");
+        builder.setCancelable(false);//başka bir yere basılınca dialog'un kapanmasını önlüyor.
+        builder.setPositiveButton("İleri", (DialogInterface.OnClickListener) (dialog, which) -> {
+            Intent intent = new Intent(MainActivity.this, activity);
+            startActivity(intent);
+        });
+        builder.setNegativeButton("İptal", (DialogInterface.OnClickListener) (dialog, which) -> {
+            dialog.cancel();
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

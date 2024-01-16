@@ -76,7 +76,7 @@ public class MakeEvaluateActivity extends AppCompatActivity {
         userID = loginActivity.getUserID();
         System.out.println("MakeEvaluateActivity userID : " + userID);
 
-        Gson gson = new GsonBuilder().setLenient().create();
+        //Gson gson = new GsonBuilder().setLenient().create();
 
         //TimeoutException'u engellemek için bunu yaptım bakalım. İşe yarayacak mı bilmiyorum.
         OkHttpClient client = new OkHttpClient.Builder()
@@ -85,7 +85,7 @@ public class MakeEvaluateActivity extends AppCompatActivity {
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)// buradan bir json verisi alacağımızı söylüyoruz.
-                .addConverterFactory(GsonConverterFactory.create(gson))// gelen JSON'ı modele göre alacağımıız retrofite de bidirmek için bu kısmı yazıyoruz
+                .addConverterFactory(GsonConverterFactory.create())// gelen JSON'ı modele göre alacağımıız retrofite de bidirmek için bu kısmı yazıyoruz
                 .client(client)
                 .build();
 
@@ -102,27 +102,37 @@ public class MakeEvaluateActivity extends AppCompatActivity {
         }
         else
             Toast.makeText(this, "Lütfen bir değerlendirme giriniz!", Toast.LENGTH_SHORT).show();*/
-        evaluateModel = new EvaluateModel(userID, rating, binding.editTextTextMultiLine.getText().toString());
+        if (!binding.editTextTextMultiLine.getText().toString().isEmpty()){
 
-        FeedbackAPI feedbackAPI = retrofit.create(FeedbackAPI.class);
+            evaluateModel = new EvaluateModel(userID, rating, binding.editTextTextMultiLine.getText().toString());
 
-        Call<EvaluateModel> call = feedbackAPI.sendData(evaluateModel);
-        call.enqueue(new Callback<EvaluateModel>() {
-            @Override
-            public void onResponse(Call<EvaluateModel> call, Response<EvaluateModel> response) {
-                if (response.isSuccessful()){
-                    Toast.makeText(MakeEvaluateActivity.this, "Değerlendirmeniz Başarıyla Kaydedildi.", Toast.LENGTH_SHORT).show();
+            FeedbackAPI feedbackAPI = retrofit.create(FeedbackAPI.class);
+
+            Call<EvaluateModel> call = feedbackAPI.sendData(evaluateModel);
+            binding.sendEvaluateButton.setBackgroundResource(R.drawable.background_btn_sent);
+            call.enqueue(new Callback<EvaluateModel>() {
+                @Override
+                public void onResponse(Call<EvaluateModel> call, Response<EvaluateModel> response) {
+                    if (response.isSuccessful()){
+                        Toast.makeText(MakeEvaluateActivity.this, "Değerlendirmeniz Başarıyla Kaydedildi.", Toast.LENGTH_SHORT).show();
                     /*Intent intent = new Intent(MakeEvaluateActivity.this, LastPageActivity.class);
                     intent.putExtra("returnWhichTest", whichTest);
                     startActivity(intent);*/
+                    }
                 }
-            }
-            @Override
-            public void onFailure(Call<EvaluateModel> call, Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(MakeEvaluateActivity.this, "Değerlendirme yollanamadı!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<EvaluateModel> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
+        else{
+            binding.sendEvaluateButton.setBackgroundResource(R.drawable.background_btn_cantsent);
+            Toast.makeText(this, "Lütfen bir değerlendirme giriniz!", Toast.LENGTH_SHORT).show();
+
+        }
+
+
     }
 
     /*public void loadData(){
