@@ -37,7 +37,13 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(view);
 
         binding.kayitOlButton.setOnClickListener(view1 -> {
-            if ((!binding.sifre2Text.getText().toString().isEmpty()) && !(binding.sifreText.getText().toString().equals(binding.sifre2Text.getText().toString()))){
+            if (binding.isimText.getText().toString().isEmpty() || binding.epostaText.getText().toString().isEmpty() ||
+                    binding.sifreText.getText().toString().isEmpty() || binding.sifre2Text.getText().toString().isEmpty()){
+                Toast.makeText(this, "Lütfen Gerekli Tüm Alanları Doldurunuz!", Toast.LENGTH_SHORT).show();
+                binding.kayitOlButton.setBackgroundResource(R.drawable.background_password);
+
+            }
+            else if ((!binding.sifre2Text.getText().toString().isEmpty()) && !(binding.sifreText.getText().toString().equals(binding.sifre2Text.getText().toString()))){
                 System.out.println("ife girmedi");
                 Toast.makeText(this, "Şifreler Uyuşmadı!", Toast.LENGTH_SHORT).show();
                 binding.kayitOlButton.setBackgroundResource(R.drawable.background_password);

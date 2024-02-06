@@ -54,7 +54,6 @@ public class EvaluatesAdapter extends RecyclerView.Adapter<EvaluatesAdapter.Eval
         public EvaluatesHolder(EvaluateRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-
         }
     }
 }

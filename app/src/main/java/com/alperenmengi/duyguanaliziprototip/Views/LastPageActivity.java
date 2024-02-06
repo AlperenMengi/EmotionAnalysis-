@@ -153,7 +153,7 @@ public class LastPageActivity extends AppCompatActivity {
                     yapayZekaSonuc = getIntent().getIntExtra("arttır", 0);
                     yzSonucu = yapayZekaSonuc;
                     pointRosenbergD7 += yapayZekaSonuc;
-                    if (pointRosenbergD7 >10)
+                    if (pointRosenbergD7 > 10)
                         pointRosenbergD7 = 10;
                 }
                 genelSonuc = pointRosenbergD7;
@@ -467,7 +467,7 @@ public class LastPageActivity extends AppCompatActivity {
     }
 
     private void printRosenbergD1(float point, String test) {
-        if (point > 0 && point <= 2) {
+        if (point >= 0 && point <= 2) {
             binding.healthText.setText("Yüksek Derecede " + test + " Sahibisiniz.");
             binding.emotionPhotoView.setImageResource(R.drawable.yuksekbenliksaygisi);
             binding.specialText.setText("Kendi güzelliklerinizi keşfedin, çünkü kendi içinizde bir hazine saklıdır.");
@@ -479,7 +479,7 @@ public class LastPageActivity extends AppCompatActivity {
             binding.specialText.setText("Kendi değerinizi unutmuşsanız, hatırlamak asıl adımdır.");
 
         }
-        if (point > 5 && point <= 6) {
+        if (point > 4 && point <= 6) {
             binding.healthText.setText("Düşük Derecede " + test + " Sahibisiniz.");
             binding.emotionPhotoView.setImageResource(R.drawable.dusukbenliksaygisi);
             binding.specialText.setText("İçsel ışığınızı bulun, çünkü karanlık sadece geçici bir durumdur.");

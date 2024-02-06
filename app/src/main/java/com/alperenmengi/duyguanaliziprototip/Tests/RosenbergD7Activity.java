@@ -254,12 +254,12 @@ public class RosenbergD7Activity extends AppCompatActivity implements CameraBrid
         countMutlu = facialExpressionRecognition.countMutlu;
         countKorkmus= facialExpressionRecognition.countKorkmus;
         countNotr = facialExpressionRecognition.countNotr;
+        System.out.println("Rosenbergd7 countNotr : " + countNotr);
         countSaskin = facialExpressionRecognition.countSaskin;
         countSinirli = facialExpressionRecognition.countSinirli;
         countUzgun = facialExpressionRecognition.countUzgun;
         countIgrenmis = facialExpressionRecognition.countIgrenmıs;
         countToplamDuygu = countMutlu+countKorkmus+countNotr+countSaskin+countSinirli+countUzgun+countIgrenmis;
-
         if ((countMutlu > countKorkmus) && (countMutlu > countNotr) && (countMutlu > countSaskin) && (countMutlu > countSinirli) && (countMutlu > countUzgun) && (countMutlu > countIgrenmis)){
             System.out.println("countMutlu : " + countMutlu);
             System.out.println("countToplamDuygu : " + countToplamDuygu);
@@ -284,8 +284,9 @@ public class RosenbergD7Activity extends AppCompatActivity implements CameraBrid
             System.out.println("countMutlu : " + countMutlu);
             System.out.println("countToplamDuygu : " + countToplamDuygu);
             yapayZekaSonuc = (int) (((double) max / countToplamDuygu) * 100) / 40;
-            if(yapayZekaSonuc < 5)
-                yapayZekaSonuc = 5;
+            System.out.println("rosenbergd7 yapayzekasonuc : " + yapayZekaSonuc);
+            /*if(yapayZekaSonuc < 5)
+                yapayZekaSonuc = 5;*/
             System.out.println("fonksiyonun elsesi yapayZekaSonuc : " + yapayZekaSonuc);
             kontrol = 0;
             kontrolDizisi[0] = yapayZekaSonuc;

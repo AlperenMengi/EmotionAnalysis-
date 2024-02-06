@@ -263,7 +263,7 @@ public class RosenbergD1Activity extends AppCompatActivity implements CameraBrid
         if ((countMutlu > countKorkmus) && (countMutlu > countNotr) && (countMutlu > countSaskin) && (countMutlu > countSinirli) && (countMutlu > countUzgun) && (countMutlu > countIgrenmis)){
             System.out.println("countMutlu : " + countMutlu);
             System.out.println("countToplamDuygu : " + countToplamDuygu);
-            yapayZekaSonuc = (int) (( (double) countMutlu / countToplamDuygu) * 100) / 20;
+            yapayZekaSonuc = (int) (( (double) countMutlu / countToplamDuygu) * 100) / 50;
             if(yapayZekaSonuc > 5)
                 yapayZekaSonuc = 5;
             System.out.println("if içindeki yapayZekaSonuc : " + yapayZekaSonuc);
@@ -281,11 +281,10 @@ public class RosenbergD1Activity extends AppCompatActivity implements CameraBrid
                     max = dizi[i];
                 }
             }
-            System.out.println("countMutlu : " + countMutlu);
-            System.out.println("countToplamDuygu : " + countToplamDuygu);
-            yapayZekaSonuc = (int) (((double) max / countToplamDuygu) * 100) / 20;
-            if(yapayZekaSonuc < 5)
-                yapayZekaSonuc = 5;
+            yapayZekaSonuc = (int) (((double) max / countToplamDuygu) * 100) / 50;
+            System.out.println("rosenberg");
+            /*if(yapayZekaSonuc < 3)
+                yapayZekaSonuc = 3;*/
             System.out.println("fonksiyonun elsesi yapayZekaSonuc : " + yapayZekaSonuc);
             kontrol = 0;
             kontrolDizisi[0] = yapayZekaSonuc;

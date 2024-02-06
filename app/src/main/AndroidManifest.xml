@@ -24,9 +24,6 @@
             android:name=".Views.DetailResultActivity"
             android:exported="false" />
         <activity
-            android:name=".Camera.CameraActivity"
-            android:exported="false" />
-        <activity
             android:name=".Camera.facialExpressionRecognition"
             android:exported="false" />
         <activity

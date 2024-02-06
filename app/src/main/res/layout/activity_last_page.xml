@@ -149,16 +149,5 @@
         app:layout_constraintTop_toBottomOf="@+id/healthText"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <ImageView
-        android:id="@+id/detailResultView"
-        android:layout_width="34dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:onClick="goToDetailResult"
-        app:layout_constraintBottom_toTopOf="@+id/healthText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/buyutec" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
